@@ -1,15 +1,19 @@
 # Hindsight Logging Across Space and Time
 
+## Run diff-match-patch
+Here's an example command that should Just Work™
+```
+python diff-patch-match.py --in-dir tests/toy-simple --log-version 2 --out-dir tests/toy-simple-diff-patch-match --log=DEBUG
+```
+
+
 ## Testing
 Pass in two different directories with the same filenames, and the test harness will compare their log outputs:
 ```
-./test-harness.sh tests/toy-simple/v2 tests/toy-simple/v2-log
+VERBOSE=1 ./test-harness.sh tests/toy-simple/v1-gt tests/toy-simple-diff-patch-match/v1
 ```
 
-Debugging the tests? Try using VERBOSE
-```
-VERBOSE=1 ./test-harness.sh tests/toy-simple/v2 tests/toy-simple/v2-log
-```
+(you can turn off VERBOSE if you want less output)
 
 ## GumTree Installation (old: this gumtree apparently does not work for python)
 
