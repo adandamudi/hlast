@@ -11,7 +11,16 @@ disagreements=""
 for program1 in $program1_dir/*py; do
     program2=${program2_dir}/$(basename $program1)
     output1=$(python $program1)
+    result=$?
+    if [ "$result" != "0" ]; then
+        output2="PROGRAM FAILURE for first input (see stacktrace above)"
+    fi
     output2=$(python $program2)
+    result=$?
+    if [ "$result" != "0" ]; then
+        output2="PROGRAM FAILURE for second input (see stacktrace above)"
+    fi
+    
     if [ -n "$VERBOSE" ]; then
         echo "$program1 output: ${output1}"
         echo "$program2 output: ${output2}"

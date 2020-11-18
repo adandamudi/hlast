@@ -1,15 +1,32 @@
 # Hindsight Logging Across Space and Time
 
+## Run diff-match-patch
+Here's an example command that should Just Work™
+```
+python diff-patch-match.py --in-dir tests/toy-simple --log-version 2 --out-dir tests/toy-simple-diff-patch-match --log=DEBUG
+```
+
 ## Testing
 Pass in two different directories with the same filenames, and the test harness will compare their log outputs:
 ```
-./test-harness.sh tests/toy-simple/v2 tests/toy-simple/v2-log
+VERBOSE=1 ./test-harness.sh tests/toy-simple/v1-gt tests/toy-simple-diff-patch-match/v1
 ```
 
-Debugging the tests? Try using VERBOSE
+(you can turn off VERBOSE if you want less output)
+
+## Data Format
+Data is organized as follows (see `tests/toy-simple/`):
 ```
-VERBOSE=1 ./test-harness.sh tests/toy-simple/v2 tests/toy-simple/v2-log
+tests/{{codebase name}}/v{{version number in (1,...)}}/{{filename}}.py
 ```
+e.g.
+* codebase name: `toy-simple`
+* version numbers 1, 2 (these should always be numeric and descending)
+* filename (this can be whatever) `linear-regression-example.py`
+
+If you want to propagate a log backwards from, say, `v4`
+It's expected that their is also a corresponding directory that contains the log named `v4-log`. Again, look at `tests/toy-simple/`
+
 
 ## GumTree Installation (old: this gumtree apparently does not work for python)
 

@@ -1,7 +1,7 @@
 i=0
-# Deletion of a single statement --> leads to ambiguity in log placement 
-seq = []
 def fun():
-        if i == 0:
-	        return seq
+		if i == 0:
+			seq=[1,2,3]
+			seq += [1]
+			return seq
 fun()
