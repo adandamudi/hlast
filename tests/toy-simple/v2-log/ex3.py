@@ -1,3 +1,5 @@
+i=0
+j=0
 a = "Hello"
 if i == 0:
 	if j == 0:

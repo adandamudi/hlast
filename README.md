@@ -1,8 +1,17 @@
 # Hindsight Logging Across Space and Time
 
+## Testing
+Pass in two different directories with the same filenames, and the test harness will compare their log outputs:
+```
+./test-harness.sh tests/toy-simple/v2 tests/toy-simple/v2-log
+```
 
+Debugging the tests? Try using VERBOSE
+```
+VERBOSE=1 ./test-harness.sh tests/toy-simple/v2 tests/toy-simple/v2-log
+```
 
-## Installation
+## GumTree Installation (old: this gumtree apparently does not work for python)
 
 ```
 # setup a conda environment

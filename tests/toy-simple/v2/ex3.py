@@ -1,3 +1,5 @@
+i=0
+j=0
 # Major changes to program logic, but no corresponding block in v1
 a = "Hello"
 if i == 0:

@@ -1,3 +1,4 @@
+i=0
 # Adding a statement, but no corresponding block in v1
 if i == 0:
 	i = i + 1
