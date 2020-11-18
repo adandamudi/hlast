@@ -28,6 +28,8 @@ If you want to propagate a log backwards from, say, `v4`
 It's expected that their is also a corresponding directory that contains the log named `v4-log`. Again, look at `tests/toy-simple/`
 
 
+(you can turn off VERBOSE if you want less output)
+
 ## GumTree Installation (old: this gumtree apparently does not work for python)
 
 ```
