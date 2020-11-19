@@ -63,6 +63,7 @@ def dmp(args):
         dmp.diff_cleanupSemantic(diff)
         # find the log entry and the line number
         linenum = 0
+        logline = ""
         for entry in diff:
             log.debug(entry)
             if entry[0] <= 0:
