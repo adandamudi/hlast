@@ -1,4 +1,5 @@
 from abc import abstractmethod
+from itertools import zip_longest
 from typing import Any, Callable, Iterable, Optional, Protocol, TypeVar
 
 # https://github.com/PyCQA/pylint/issues/3882
@@ -58,7 +59,7 @@ class BaseAdapter(Protocol[Node]):
                 and self.value(n1) == self.value(n2)
                 and self.height(n1) == self.height(n2)
                 and all(self.isomorphic(c1, c2) for c1, c2
-                        in zip(*map(self.children, [n1, n2]))))
+                        in zip_longest(*map(self.children, [n1, n2]))))
 
     # These are just a debugging / assertion aids
 

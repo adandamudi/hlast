@@ -1,5 +1,5 @@
 from apted import APTED, Config
-from itertools import product
+from itertools import product, zip_longest
 from collections.abc import Iterable
 from typing import Generic, Optional, TypeVar
 from bidict import bidict
@@ -50,7 +50,7 @@ class Mapping(Generic[Tree]):
         self._r[id(n2)] = n2
 
     def add_subtree(self, t1: Tree, t2: Tree):
-        for n1, n2 in zip(*map(self.adapter.postorder, [t1, t2])):
+        for n1, n2 in zip_longest(*map(self.adapter.postorder, [t1, t2])):
             self.add(n1, n2)
 
     def __contains__(self, ts: tuple[Optional[Tree], Optional[Tree]]) -> bool:

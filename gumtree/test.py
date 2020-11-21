@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+from itertools import zip_longest
+
 from . import GumTree, Mapping
 from .tree import Node, adapter
 
@@ -109,7 +111,7 @@ def example():
 
 def match(left: Mapping, right: Mapping):
     return all(id(el) == id(rl) and id(er) == id(rr)
-               for (el, er), (rl, rr) in zip(left, right))
+               for (el, er), (rl, rr) in zip_longest(left, right))
 
 
 if __name__ == "__main__":
