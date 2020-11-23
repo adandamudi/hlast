@@ -14,9 +14,9 @@ Node = Union[AST, list]
 
 
 class Adapter(BaseAdapter[Node]):
-    def __init__(self, root1: Node, root2: Node):
+    def __init__(self, *roots: Node):
         self._parents = {}
-        for root in [root1, root2]:
+        for root in roots:
             self._update_parents(root)
 
     def parent(self, n: Node) -> Optional[Node]:
