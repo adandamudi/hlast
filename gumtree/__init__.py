@@ -51,7 +51,9 @@ class Mapping(Generic[Tree]):
 
     def add_subtree(self, t1: Tree, t2: Tree):
         for n1, n2 in zip_longest(*map(self.adapter.postorder, [t1, t2])):
-            self.add(n1, n2)
+            if (n1, None) not in self and (None, n2) not in self:
+                self.add(n1, n2)
+            assert (n1, n2) in self
 
     def __contains__(self, ts: tuple[Optional[Tree], Optional[Tree]]) -> bool:
         if all(t is not None for t in ts):
@@ -98,7 +100,7 @@ class GumTree(Generic[Tree]):
         def different(l, r): return id(l) != id(r)
 
         l1, l2 = HeightPQ(adapt, [t1]), HeightPQ(adapt, [t2])
-        a, m = Mapping(adapt), Mapping(adapt)
+        a, m = [], Mapping(adapt)
 
         # Note: Algorithm uses >, but the example seems to use >= instead.
         while max(l.peek_max() for l in [l1, l2]) >= min_height:
@@ -112,7 +114,7 @@ class GumTree(Generic[Tree]):
                     if isomorphic(n1, n2):
                         if any(isomorphic(n1, t) for t in h2 if different(t, n2)) or \
                            any(isomorphic(t, n2) for t in h1 if different(t, n1)):
-                            a.add(n1, n2)
+                            a.append((n1, n2))
                         else:
                             m.add_subtree(n1, n2)
                 for t1 in h1:
@@ -122,11 +124,9 @@ class GumTree(Generic[Tree]):
                     if (None, t2) not in m:
                         l2.open(t2)
 
-        def parent_dice(ts):
-            return self.dice(parent(ts[0]), parent(ts[1]), m)
-
-        # Note: Algorithm removes from A, but I think this is more efficient
-        for n1, n2 in sorted(a, key=parent_dice, reverse=True):
+        a.sort(key=lambda ts: self.dice(*map(parent, ts), m), reverse=True)
+        for n1, n2 in a:
+            # Note: Algorithm removes from A, but I think this is more efficient
             if (n1, None) not in m and (None, n2) not in m:
                 m.add_subtree(n1, n2)
 
