@@ -1,6 +1,6 @@
 #!/bin/bash
 
-format(){ python -c "import sys, ast; print(ast.unparse(ast.parse(sys.stdin.read())))"; }
+format(){ cat $1; }
 
 for dir in tests/*; do
     suite="${dir##*/}"
@@ -8,13 +8,13 @@ for dir in tests/*; do
     #FIXME: Store replicable results in a separate directory
     if [[ "$suite" == *-diff-patch-match || "$suite" == *-gumtree ]]; then continue; fi
 
-    if [[ -n $1 && $suite != $1 ]]; then continue; fi
+    if [[ -n $1 && "$suite" != $1 ]]; then continue; fi
 
     for file in tests/$suite/v*-log/*.py; do
         test="${file##*/}"; test="${test%.py}"
         v="${file#*/v}"; v="${v%-log/*}"
 
-        if [[ -n $2 && $test != $2 ]]; then continue; fi
+        if [[ -n $2 && "$test" != $2 ]]; then continue; fi
 
         # Variables:
         #   target ---> base
@@ -31,14 +31,18 @@ for dir in tests/*; do
             if [[ -z $3 || $v == $3 ]]; then
                 mkdir -p "${result%/*}"; rm -rf "$result"
 
-                # Modify to use a different log propagation
+                # vvvvv Modify to use a different log propagation
                 lineno=$(diff $log $base | grep -B1 ^\< | egrep -o ^\\d+)
+                if [[ -z "$lineno" ]]; then continue; fi
+
                 echo "[$suite/$test/$v] propagate.py lineno=$lineno"
-                python propagate.py $lineno "$log" "$target" "$result"
+                ./propagate.py "$lineno" "$log" "$target" --out "$result" "${@:4}"
+                format(){ ./format.py "$1" "${@:4}"; }  # normalize
+                # ^^^^^
 
                 if [[ -f "$result" ]]; then
                     echo "[$suite/$test/$v] diff -q result ground-truth"
-                    diff -q "$result" <(format < "$gt") || sdiff "$result" <(format < "$gt")
+                    diff -q "$result" <(format "$gt") || sdiff "$result" <(format "$gt")
                 fi
             fi
 

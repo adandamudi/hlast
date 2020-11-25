@@ -1,7 +1,11 @@
-from ast import AST, Name, parse, unparse, walk, stmt
+#!/usr/bin/env python
+
+from argparse import ArgumentParser, FileType, Namespace
+from ast import AST, Name, parse, unparse, walk, stmt, literal_eval
 from collections import defaultdict
 from copy import deepcopy
-from pathlib import Path
+from typing import TextIO
+import sys
 
 from gumtree import GumTree, Mapping, python
 
@@ -9,20 +13,26 @@ from gumtree import GumTree, Mapping, python
 # pylint: disable=unsubscriptable-object
 
 
-def main(argv: list[str]):
-    lineno, src, dst, out = argv[1:]
-    propagate(int(lineno), Path(src), Path(dst), Path(out))
+def add_arguments(parser: ArgumentParser):
+    parser.add_argument('lineno', type=int)
+    parser.add_argument('source', type=FileType('r'))
+    parser.add_argument('target', type=FileType('r+'))
+    parser.add_argument('--out', type=FileType('w'), default=sys.stdout)
+    parser.add_argument('--minor', type=int, default=sys.version_info[1])
+    parser.add_argument('--gumtree', type=literal_eval, default='{}')
+    return parser
 
 
-def propagate(lineno: int, src: Path, dst: Path, out: Path):
-    tree, target = map(lambda p: parse(p.read_text(), p), [src, dst])
-    replicate(tree, find(tree, lineno=lineno), target)
-    out.write_text(unparse(target) + '\n')
+def propagate(args: Namespace):
+    tree, target = [parse(f.read(), feature_version=(3, args.minor))
+                    for f in (args.source, args.target)]
+    replicate(tree, find(tree, lineno=args.lineno), target, **args.gumtree)
+    print(unparse(target), file=args.out)
 
 
-def replicate(tree: AST, node: stmt, target: AST):
+def replicate(tree: AST, node: stmt, target: AST, **kwargs):
     adapter = python.Adapter(tree, target)
-    mapping = GumTree(adapter).mapping(tree, target)
+    mapping = GumTree(adapter, **kwargs).mapping(tree, target)
     assert tree == adapter.root(node) and isinstance(node, stmt)
 
     # print('# TREE', adapter.dump(tree),
@@ -89,5 +99,4 @@ def find(t: AST, *, lineno: int):
 
 
 if __name__ == "__main__":
-    import sys
-    main(sys.argv)
+    propagate(add_arguments(ArgumentParser()).parse_args(sys.argv[1:]))
