@@ -37,10 +37,10 @@ def replicate(tree: AST, node: stmt, target: AST, **kwargs):
 
     # print('# TREE', adapter.dump(tree),
     #       '# TARGET', adapter.dump(target), sep='\n')
-    # print('# MAPPINGS', '\n'.join('\t->\t'.join(adapter.label(n)
-    #       for n in (l, r)) for l, r in mapping), sep='\n')
+    # print('# MAPPING', '\n'.join('\t->\t'.join(adapter.label(n)
+    #       for n in (l, r)) for l, r in mapping.items()), sep='\n')
 
-    if (node, None) in mapping:
+    if node in mapping:
         exit('Already in target!')
 
     parent = adapter.parent(node)
@@ -56,14 +56,14 @@ def replicate(tree: AST, node: stmt, target: AST, **kwargs):
             preceding.append(sibling)
 
     for context in reversed(preceding):
-        if (context, None) in mapping:
+        if context in mapping:
             reference = mapping[context]
             block = adapter.parent(reference)
             new = adapt(node, tree, mapping)
             block.insert(1 + block.index(reference), new)
             return
 
-    if (parent, None) in mapping:
+    if parent in mapping:
         block = mapping[parent]
         new = adapt(node, tree, mapping)
         block.insert(0, new)
@@ -76,7 +76,7 @@ def adapt(node: AST, tree: AST, mapping: Mapping):
     # Count all renames detected by GumTree
     count = defaultdict(lambda: defaultdict(int))
     for n in walk(tree):
-        if isinstance(n, Name) and (n, None) in mapping:
+        if isinstance(n, Name) and n in mapping:
             count[n.id][mapping[n].id] += 1
     # Select the most common as canonical
     renames = {orig: max(options, key=options.get)
