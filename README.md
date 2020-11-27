@@ -1,9 +1,26 @@
 # Hindsight Logging Across Space and Time
 
-## Run diff-match-patch
+## Log Propagators
+
+### dmp-propagate.py
+Based on Google's [diff-match-patch](https://github.com/google/diff-match-patch) libraries.
+
 Here's an example command that should Just Work™
 ```
 python dmp-propagate.py --in-dir tests/toy-simple --log-version 2 --out-dir out/dmp/toy-simple --log=DEBUG
+```
+
+### gt-propagate.py
+Based on [Fine-grained and accurate source code differencing](https://doi.org/10.1145/2642937.2642982) GumTree algorithm.
+
+Takes a line number and source file (the statement to propagate) and a target (a different version without).
+```
+python gt-propagate.py <lineno> <source> <target> [--out <result>]
+```
+
+To run over a set of tests, use the bash script and the codebase/file/version you want to test.
+```
+bash gt-propagate.sh [codebase [filename [version [gt-propagate-args]]]]
 ```
 
 ## Testing
@@ -17,41 +34,12 @@ VERBOSE=1 ./test-harness.sh tests/toy-simple/v1-gt results/dmp/toy-simple/v1
 ## Data Format
 Data is organized as follows (see `tests/toy-simple/`):
 ```
-tests/{{codebase name}}/v{{version number in (1,...)}}/{{filename}}.py
+tests/{{codebase}}/v{{version}}/{{filename}}.py
 ```
 e.g.
-* codebase name: `toy-simple`
-* version numbers 1, 2 (these should always be numeric and descending)
-* filename (this can be whatever) `linear-regression-example.py`
+* codebase: `toy-simple` (`toy`: synthetic, `real`: ecological)
+* version: 2 (should be numeric, ascending, and without gaps)
+* filename: `linear-regression-example.py` (this can be whatever)
 
-If you want to propagate a log backwards from, say, `v4`
-It's expected that their is also a corresponding directory that contains the log named `v4-log`. Again, look at `tests/toy-simple/`
-
-
-(you can turn off VERBOSE if you want less output)
-
-## GumTree Installation (old: this gumtree apparently does not work for python)
-
-```
-# setup a conda environment
-conda create -n 262a python=3.7 ipython
-conda activate 262a
-
-# install pythonparser for gumtree
-git clone git@github.com:GumTreeDiff/pythonparser.git
-cd pythonparser
-pip install -r requirements.txt
-ln -f -s $PWD/pythonparser  SOMEWHERE_IN_YOUR_PATH
-
-
-# install java (you may have a different setup on your system)
-conda install -c anaconda openjdk 
-
-# get gumtree binary
-wget https://github.com/GumTreeDiff/gumtree/releases/download/v2.1.2/gumtree.zip
-unzip gumtree.zip
-ln -s $PWD/gumtree-2.1.2/bin/gumtree SOMEWHERE_IN_YOUR_PATH
-
-# test
-gumtree diff file1 file2
-```
+If you want to propagate a log backwards from, say, `v4` we expected that there should also be a corresponding directory
+that contains the logging version named `v4-log`, while previous versions should have a `v*-gt` with the Ground Truth.
