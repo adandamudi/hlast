@@ -23,6 +23,8 @@ To run over a set of tests, use the bash script and the codebase/file/version yo
 bash gt-propagate.sh [codebase [filename [version [gt-propagate-args]]]]
 ```
 
+Finally, run `gt-outputs.sh` with no arguments to replicate the saved outputs.
+
 ## Testing
 Pass in two different directories with the same filenames, and the test harness will compare their log outputs:
 ```
