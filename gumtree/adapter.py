@@ -14,9 +14,9 @@ def memoize(orig: Callable[['Adapter', Node], T]) -> Callable[['Adapter', Node],
     memo = {}
 
     def new(self, n: Node) -> T:
-        if id(n) not in memo:
-            memo[id(n)] = orig(self, n)
-        return memo[id(n)]
+        if (key := id(n)) not in memo:
+            memo[key] = orig(self, n)
+        return memo[key]
 
     return new
 
@@ -76,6 +76,8 @@ class BaseAdapter(Protocol[Node]):
             yield from self.descendants(child)
             yield child
 
+    @memoize
+    @materialize
     def postorder(self, n: Node) -> Iterable[Node]:
         for child in self.children(n):
             yield from self.postorder(child)

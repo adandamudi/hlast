@@ -40,6 +40,7 @@ class Adapter(BaseAdapter[Node]):
             if isinstance(value, (AST, list)) and not isinstance(value, Enums):
                 yield value
 
+    @memoize
     def label(self, n: Node) -> str:
         return type(n).__name__
 
