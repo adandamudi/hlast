@@ -17,10 +17,16 @@ class Adapter(BaseAdapter[Node]):
     def __init__(self, *roots: Node):
         self._parents = {}
         for root in roots:
-            self._update_parents(root)
+            self._save_parents(root)
 
     def parent(self, n: Node) -> Optional[Node]:
-        return self._parents.get(id(n), None)
+        return self._parents[id(n)]
+
+    def _save_parents(self, node, parent=None):
+        assert id(node) not in self._parents
+        self._parents[id(node)] = parent
+        for child in self.children(node):
+            self._save_parents(child, parent=node)
 
     @memoize
     @materialize
@@ -48,9 +54,3 @@ class Adapter(BaseAdapter[Node]):
                 if value is not None and not isinstance(value, (AST, list)) or isinstance(value, Enums):
                     terminals.append((name, value))
         return terminals
-
-    def _update_parents(self, root):
-        for child in self.children(root):
-            assert id(child) not in self._parents
-            self._parents[id(child)] = root
-            self._update_parents(child)
