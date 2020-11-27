@@ -1,5 +1,8 @@
 #!/bin/bash
 
+selected_suite=$1; selected_test=$2; selected_version=$3
+extra_args=( "${@:4}" )
+
 format(){ cat $1; }
 
 for dir in tests/*; do
@@ -8,13 +11,13 @@ for dir in tests/*; do
     #FIXME: Store replicable results in a separate directory
     if [[ "$suite" == *-diff-patch-match || "$suite" == *-gumtree ]]; then continue; fi
 
-    if [[ -n $1 && "$suite" != $1 ]]; then continue; fi
+    if [[ -n "$selected_suite" && "$suite" != "$selected_suite" ]]; then continue; fi
 
     for file in tests/$suite/v*-log/*.py; do
         test="${file##*/}"; test="${test%.py}"
         v="${file#*/v}"; v="${v%-log/*}"
 
-        if [[ -n $2 && "$test" != $2 ]]; then continue; fi
+        if [[ -n "$selected_test" && "$test" != "$selected_test" ]]; then continue; fi
 
         # Variables:
         #   target ---> base
@@ -28,16 +31,17 @@ for dir in tests/*; do
             target="tests/$suite/v$v/$test.py"
             result="tests/$suite-gumtree/v$v/$test.py"
 
-            if [[ -z $3 || $v == $3 ]]; then
-                mkdir -p "${result%/*}"; rm -rf "$result"
+            if [[ -z "$selected_version" || $v == "$selected_version" ]]; then
+                mkdir -p "${result%/*}"; rm -rf "$result";
 
                 # vvvvv Modify to use a different log propagation
                 lineno=$(diff $log $base | grep -B1 ^\< | egrep -o ^\\d+)
                 if [[ -z "$lineno" ]]; then continue; fi
 
                 echo "[$suite/$test/$v] propagate.py lineno=$lineno"
-                ./propagate.py "$lineno" "$log" "$target" --out "$result" "${@:4}"
-                format(){ ./format.py "$1" "${@:4}"; }  # normalize
+                ./propagate.py "${extra_args[@]}" "$lineno" "$log" "$target" --out "$result"
+
+                format(){ ./format.py "$1" "${extra_args[@]}"; }
                 # ^^^^^
 
                 if [[ -f "$result" ]]; then
