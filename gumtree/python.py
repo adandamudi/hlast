@@ -1,7 +1,7 @@
 from ast import AST, iter_fields
 from typing import Any, Iterable, Optional, Union, get_args
 
-from .adapter import BaseAdapter, memoize
+from .adapter import BaseAdapter, memoize, materialize
 
 # https://github.com/PyCQA/pylint/issues/3882
 # pylint: disable=unsubscriptable-object
@@ -22,8 +22,9 @@ class Adapter(BaseAdapter[Node]):
     def parent(self, n: Node) -> Optional[Node]:
         return self._parents.get(id(n), None)
 
-    @staticmethod
-    def children(n: Node) -> Iterable[Node]:
+    @memoize
+    @materialize
+    def children(self, n: Node) -> Iterable[Node]:
         if isinstance(n, AST):
             it = iter_fields(n)
         if isinstance(n, list):

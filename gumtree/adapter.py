@@ -6,17 +6,24 @@ from typing import Any, Callable, Iterable, Optional, Protocol, TypeVar
 # pylint: disable=unsubscriptable-object
 
 
-Node = TypeVar('N')
+Node = TypeVar('Node')
+T = TypeVar('T')
 
 
-def memoize(orig: Callable[[Node], int]):
+def memoize(orig: Callable[['Adapter', Node], T]) -> Callable[['Adapter', Node], T]:
     memo = {}
 
-    def new(self, n: Node) -> int:
+    def new(self, n: Node) -> T:
         if id(n) not in memo:
             memo[id(n)] = orig(self, n)
         return memo[id(n)]
 
+    return new
+
+
+def materialize(orig: Callable[['Adapter', Node], Iterable[T]]) -> Callable[['Adapter', Node], tuple[T]]:
+    def new(self, n: Node) -> tuple[T]:
+        return tuple(orig(self, n))
     return new
 
 
