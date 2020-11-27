@@ -8,9 +8,6 @@ format(){ cat $1; }
 for dir in tests/*; do
     suite="${dir##*/}"
 
-    #FIXME: Store replicable results in a separate directory
-    if [[ "$suite" == *-diff-patch-match || "$suite" == *-gumtree ]]; then continue; fi
-
     if [[ -n "$selected_suite" && "$suite" != "$selected_suite" ]]; then continue; fi
 
     for file in tests/$suite/v*-log/*.py; do
@@ -29,7 +26,7 @@ for dir in tests/*; do
 
         while [[ $v > 0 ]]; do
             target="tests/$suite/v$v/$test.py"
-            result="tests/$suite-gumtree/v$v/$test.py"
+            result="out/gt/$suite/v$v/$test.py"
 
             if [[ -z "$selected_version" || $v == "$selected_version" ]]; then
                 mkdir -p "${result%/*}"; rm -rf "$result";
@@ -39,7 +36,7 @@ for dir in tests/*; do
                 if [[ -z "$lineno" ]]; then continue; fi
 
                 echo "[$suite/$test/$v] propagate.py lineno=$lineno"
-                ./propagate.py "${extra_args[@]}" "$lineno" "$log" "$target" --out "$result"
+                ./gt-propagate.py "${extra_args[@]}" "$lineno" "$log" "$target" --out "$result"
 
                 format(){ ./format.py "$1" "${extra_args[@]}"; }
                 # ^^^^^
