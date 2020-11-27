@@ -43,49 +43,44 @@ def replicate(tree: AST, node: stmt, target: AST, **kwargs):
     if node in mapping:
         exit('Already in target!')
 
-    parent = adapter.parent(node)
-    if parent is None:
-        target.body.append(deepcopy(node))
-        return
+    block, index = find_insert_loc(adapter, node, mapping)
+    new = make_contextual_copy(adapter, node, mapping)
+    block.insert(index, new)
 
-    preceding = []
+
+def find_insert_loc(adapter, node, mapping):
+    parent = adapter.parent(node)
+
+    context = None
     for sibling in adapter.children(parent):
         if id(sibling) == id(node):
             break
-        if isinstance(sibling, stmt):
-            preceding.append(sibling)
+        if sibling in mapping:
+            context = sibling
 
-    for context in reversed(preceding):
-        if context in mapping:
-            reference = mapping[context]
-            block = adapter.parent(reference)
-            new = adapt(node, tree, mapping)
-            block.insert(1 + block.index(reference), new)
-            return
-
-    if parent in mapping:
+    if context is not None:
+        ref = mapping[context]
+        block = adapter.parent(ref)
+        index = 1 + block.index(ref)
+    elif parent in mapping:
         block = mapping[parent]
-        new = adapt(node, tree, mapping)
-        block.insert(0, new)
-        return
+        index = 0
+    else:
+        exit('Unable to map context!')
 
-    exit('Unable to replicate!')
+    return block, index
 
 
-def adapt(node: AST, tree: AST, mapping: Mapping):
-    # Count all renames detected by GumTree
-    count = defaultdict(lambda: defaultdict(int))
-    for n in walk(tree):
-        if isinstance(n, Name) and n in mapping:
-            count[n.id][mapping[n].id] += 1
-    # Select the most common as canonical
-    renames = {orig: max(options, key=options.get)
-               for orig, options in count.items()}
-    # Update the names in given node
+def make_contextual_copy(adapter, node, mapping):
+    renames = defaultdict(lambda: defaultdict(int))
+    for source, target in mapping.items():
+        if isinstance(source, Name) and not adapter.contains(source, node):
+            renames[source.id][target.id] += 1
+
     new = deepcopy(node)
     for n in walk(new):
         if isinstance(n, Name) and n.id in renames:
-            n.id = renames[n.id]
+            n.id = max(renames[n.id], key=renames[n.id].get)
     return new
 
 
