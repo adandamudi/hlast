@@ -27,7 +27,7 @@ class HeightPQ(PriorityQ[Tree, int]):
         for child in self.adapter.children(tree):
             self.push(child)
 
-    def pop(self) -> Tree:
+    def pop(self) -> list[Tree]:
         trees = []
         assert self, 'Empty!'
         height = self.peek_max()
@@ -126,8 +126,8 @@ class GumTree(Generic[Tree]):
                 n2 = candidate(n1, m)
                 if n2 and self.dice(n1, n2, m) > min_dice:
                     m.put(n1, n2)
+                    # Note: Paper mentions removing already matched descendants
                     if max(num_descendants(t) for t in [n1, n2]) < max_size:
-                        # Note: Paper mentions removing already matched descendants
                         for ta, tb in self.opt(n1, n2):
                             if ta is not None and tb is not None \
                                     and ta not in m and tb not in m.inv \
