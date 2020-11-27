@@ -3,13 +3,13 @@
 ## Run diff-match-patch
 Here's an example command that should Just Work™
 ```
-python diff-patch-match.py --in-dir tests/toy-simple --log-version 2 --out-dir tests/toy-simple-diff-patch-match --log=DEBUG
+python diff-patch-match.py --in-dir tests/toy-simple --log-version 2 --out-dir out/dmp/toy-simple --log=DEBUG
 ```
 
 ## Testing
 Pass in two different directories with the same filenames, and the test harness will compare their log outputs:
 ```
-VERBOSE=1 ./test-harness.sh tests/toy-simple/v1-gt tests/toy-simple-diff-patch-match/v1
+VERBOSE=1 ./test-harness.sh tests/toy-simple/v1-gt results/dmp/toy-simple/v1
 ```
 
 (you can turn off VERBOSE if you want less output)
