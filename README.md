@@ -3,7 +3,7 @@
 ## Run diff-match-patch
 Here's an example command that should Just Work™
 ```
-python diff-patch-match.py --in-dir tests/toy-simple --log-version 2 --out-dir out/dmp/toy-simple --log=DEBUG
+python dmp-propagate.py --in-dir tests/toy-simple --log-version 2 --out-dir out/dmp/toy-simple --log=DEBUG
 ```
 
 ## Testing
