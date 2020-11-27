@@ -136,10 +136,11 @@ class GumTree(Generic[Tree]):
 
     def dice(self, t1: Tree, t2: Tree, m: Mapping[Tree]):
         num_descendants = self.adapter.num_descendants
-        def s(n): return map(id, self.adapter.postorder(n))
+        descendants = self.adapter.descendants
+        contains = self.adapter.contains
 
         # Note: Formula is unclear, I think this is what they meant ¯\_(ツ)_/¯
-        return (2 * sum(1 for n1, n2 in m.items() if id(n1) in s(t1) and id(n2) in s(t2))  # FIXME: bottleneck 4s
+        return (2 * sum(1 for n1 in descendants(t1) if n1 in m and contains(m[n1], t2))
                 / (num_descendants(t1) + num_descendants(t2) or 1))
 
     def apted(self, t1: Tree, t2: Tree):

@@ -39,7 +39,7 @@ class BaseAdapter(Protocol[Node]):
     def value(self, n: Node) -> Any:
         raise NotImplementedError
 
-    # These should just "work", but could be optimized!
+    # These should just work, but could be optimized!
 
     @memoize
     def height(self, n: Node) -> int:
@@ -47,19 +47,32 @@ class BaseAdapter(Protocol[Node]):
 
     @memoize
     def num_descendants(self, n: Node) -> int:
-        return sum(1 for _ in self.postorder(n)) - 1
+        return sum(1 + self.num_descendants(c) for c in self.children(n))
+
+    def contains(self, n: Node, t: Node) -> bool:
+        while parent := self.parent(n):
+            if id(parent) == id(t):
+                return True
+            n = parent
+        return False
+
+    def isomorphic(self, n1: Node, n2: Node) -> bool:
+        return all(prop(n1) == prop(n2) for prop in
+                   [self.label, self.value, self.height, self.num_descendants]) \
+            and all(self.isomorphic(c1, c2) for c1, c2 in
+                    zip_longest(*map(self.children, [n1, n2])))
+
+    # These are unlikely to benefit from optimization
+
+    def descendants(self, n: Node) -> Iterable[Node]:
+        for child in self.children(n):
+            yield from self.descendants(child)
+            yield child
 
     def postorder(self, n: Node) -> Iterable[Node]:
         for child in self.children(n):
             yield from self.postorder(child)
         yield n
-
-    def isomorphic(self, n1: Node, n2: Node) -> bool:
-        return (self.label(n1) == self.label(n2)
-                and self.value(n1) == self.value(n2)
-                and self.height(n1) == self.height(n2)
-                and all(self.isomorphic(c1, c2) for c1, c2
-                        in zip_longest(*map(self.children, [n1, n2]))))
 
     # These are just a debugging / assertion aids
 
