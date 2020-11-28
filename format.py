@@ -10,4 +10,7 @@ parser.add_argument('--minor', type=int, default=sys.version_info[1])
 (args, _) = parser.parse_known_args()
 
 t = parse(args.file.read(), feature_version=(3, args.minor))
-print(unparse(t))
+
+args.file.seek(0)
+print(unparse(t), file=args.file)
+args.file.truncate()

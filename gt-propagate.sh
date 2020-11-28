@@ -1,57 +1,64 @@
 #!/bin/bash
 
-selected_suite=$1; selected_test=$2; selected_version=$3
+selected_codebase=$1; selected_filename=$2; selected_version=$3
 extra_args=( "${@:4}" )
 
-format(){ cat $1; }
+message(){ echo "[$codebase/$filename@v$version]" "$@"; }
 
 for dir in tests/*; do
-    suite="${dir##*/}"
+    codebase="${dir##*/}"
 
-    if [[ -n "$selected_suite" && "$suite" != "$selected_suite" ]]; then continue; fi
+    if [[ -z "$selected_codebase" || "$codebase" == "$selected_codebase" ]]; then
 
-    for file in tests/$suite/v*-log/*.py; do
-        test="${file##*/}"; test="${test%.py}"
-        v="${file#*/v}"; v="${v%-log/*}"
+        for path in tests/$codebase/v*-log/*.py; do
+            filename="${path##*/}"
+            
+            version="${path#*/v}"
+            version="${version%-log/*}"
 
-        if [[ -n "$selected_test" && "$test" != "$selected_test" ]]; then continue; fi
+            if [[ -z "$selected_filename" || "$filename" == "$selected_filename" ]]; then
 
-        # Variables:
-        #   target ---> base
-        #    |           |
-        #    '---> gt    '---> log
+                log="tests/$codebase/v$version-log/$filename"
+                nolog="tests/$codebase/v$version/$filename"
 
-        base="tests/$suite/v$v/$test.py"
-        log="$file"; gt="$log"
+                # Start with sanity check by propagating to nolog
+                ground_truth="$log"
 
-        while [[ $v > 0 ]]; do
-            target="tests/$suite/v$v/$test.py"
-            result="out/gt/$suite/v$v/$test.py"
+                while [[ $version > 0 ]]; do
+                    target="tests/$codebase/v$version/$filename"
+                    result="out/gt/$codebase/v$version/$filename"
 
-            if [[ -z "$selected_version" || $v == "$selected_version" ]]; then
-                mkdir -p "${result%/*}"; rm -rf "$result";
+                    if diff "$log" "$nolog" > /dev/null; then
+                        message "no log statement!"
 
-                # vvvvv Modify to use a different log propagation
-                lineno=$(diff $log $base | grep -B1 ^\< | egrep -o ^\\d+)
-                if [[ -z "$lineno" ]]; then continue; fi
+                    elif [[ -z "$selected_version" || $version == "$selected_version" ]]; then
+                        mkdir -p "${result%/*}"
+                        rm -rf "$result"
 
-                echo "[$suite/$test/$v] propagate.py lineno=$lineno"
-                ./gt-propagate.py "${extra_args[@]}" "$lineno" "$log" "$target" --out "$result"
+                        # vvvvv Modify to use a different log propagation
+                        git restore "$log"
+                        lineno=$(diff $log $nolog | grep -B1 ^\< | egrep -o ^\\d+)
 
-                format(){ ./format.py "$1" "${extra_args[@]}"; }
-                # ^^^^^
+                        message "propagate.py lineno=$lineno"
+                        ./gt-propagate.py "${extra_args[@]}" "$lineno" "$log" "$target" --out "$result"
 
-                if [[ -f "$result" ]]; then
-                    echo "[$suite/$test/$v] diff -q result ground-truth"
-                    diff -q "$result" <(format "$gt") || sdiff "$result" <(format "$gt")
-                fi
+                        ./format.py "$ground_truth" "${extra_args[@]}"
+                        # ^^^^^
+
+                        if [[ -f "$result" ]]; then
+                            message "diff -q result ground-truth"
+                            diff -q "$result" "$ground_truth" || sdiff "$result" "$ground_truth"
+                        fi
+
+                    fi
+
+                    log="$ground_truth"
+                    nolog="$target"
+
+                    version=$((version-1))
+                    ground_truth="tests/$codebase/v$version-gt/$filename"
+                done
             fi
-
-            v=$((v-1))
-            base="$target"
-            log="$gt"
-
-            gt="tests/$suite/v$v-gt/$test.py"
         done
-    done
+    fi
 done
