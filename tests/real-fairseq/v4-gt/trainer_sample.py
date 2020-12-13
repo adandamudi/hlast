@@ -466,7 +466,6 @@ class Trainer(object):
         logging_outputs, sample_size, ooms = [], 0, 0
         for i, sample in enumerate(samples):
             sample = self._prepare_sample(sample)
-            print("LOG STMT: Sample = %s" % (str(sample)))
             if sample is None:
                 # when sample is None, run forward/backward on a dummy batch
                 # and ignore the resulting gradients
@@ -476,6 +475,7 @@ class Trainer(object):
                 if self._dummy_batch == "DUMMY":
                     self._dummy_batch = sample
                 is_dummy_batch = False
+            print("LOG STMT: Sample = %s" % (str(sample)))
 
             def maybe_no_sync():
                 """

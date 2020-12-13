@@ -509,7 +509,7 @@ class Trainer(object):
         for i, sample in enumerate(samples):
             sample, is_dummy_batch = self._prepare_sample(sample)
             print("LOG STMT: Sample = %s" % (str(sample)))
-
+            
             def maybe_no_sync():
                 """
                 Whenever *samples* contains more than one mini-batch, we
