@@ -3,11 +3,16 @@ from typing import Callable, Generic, Iterable, TypeVar
 from operator import lt, gt
 
 
-T, K = TypeVar('T'), TypeVar('K')
+T, I = TypeVar('T'), TypeVar('I')
+Key = Callable[[T], I]
 
-class PriorityQ(Generic[T, K]):
 
-    def __init__(self, it: Iterable[T], *, key: Callable[[T], K] = lambda x: x, reverse=False):
+def identity(x):
+    return x
+
+
+class PriorityQ(Generic[T, I]):
+    def __init__(self, it: Iterable[T], *, key: Key = identity, reverse=False):
         self._Item = self._itemizer(key, reverse)
         self._heap = list(map(self._Item, it))
         heapify(self._heap)

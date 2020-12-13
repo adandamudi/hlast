@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from config import Config
+from .adapter import BaseAdapter
 
 
 @dataclass(frozen=True)
@@ -20,7 +20,21 @@ class Node:
 Tree = Node
 
 
-class TreeConfig(Config[Tree]):
-    pass
+class Adapter(BaseAdapter[Tree]):
+    def parent(self, n: Tree):
+        return n.parent
 
-config = TreeConfig()
+    def children(self, n: Tree):
+        return n.children
+
+    def label(self, n: Tree) -> str:
+        return n.label
+
+    def value(self, n: Tree) -> str:
+        return n.value
+    
+    def isomorphic(self, n1: Tree, n2: Tree) -> bool:
+        return n1 == n2
+
+
+adapter = Adapter()

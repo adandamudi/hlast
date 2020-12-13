@@ -1,9 +1,43 @@
-from gumtree import GumTree, Mapping
-from tree import Tree, Node, config
+#!/usr/bin/env python
+
+from itertools import zip_longest
+
+from . import GumTree, Mapping
+from .tree import Node, adapter
 
 
 N = Node
-gt = GumTree(config)
+gt = GumTree(adapter)
+
+
+def test():
+    t1, t2 = example()
+
+    result = gt.topdown(t1, t2)
+
+    expected = Mapping(adapter)
+    expected.put_tree(t1[0][2][1], t2[0][2][1])
+    expected.put_tree(t1[0][2][3], t2[0][2][3])
+    expected.put_tree(t1[0][2][4][0][0], t2[0][2][4][0][0])
+    expected.put_tree(t1[0][2][4][0][1], t2[0][2][4][0][2][1])
+    assert match(result, expected), 'topdown'
+
+    result = Mapping(adapter, expected)
+    gt.bottomup(t1, t2, result)
+
+    expected.put(t1[0][2][4][0], t2[0][2][4][0])
+    expected.put(t1[0][2][4], t2[0][2][4])
+    expected.put(t1[0][2], t2[0][2])
+    expected.put(t1[0][2][0], t2[0][2][0])
+    expected.put(t1[0][2][2], t2[0][2][2])
+    expected.put(t1[0], t2[0])
+    expected.put(t1[0][0], t2[0][0])
+    expected.put(t1[0][1], t2[0][1])
+    expected.put(t1, t2)
+    assert match(result, expected), 'bottomup'
+
+    assert match(gt.mapping(t1, t2), expected)
+    print('Passed Example!')
 
 
 def example():
@@ -27,9 +61,6 @@ def example():
                             N('InfixExpression', '==', [
                                 N('SimpleName', 'i'),
                                 N('NumberLiteral', '0'),
-                            ]),
-                            N('ReturnStatement', '', [
-                                N('StringLiteral', 'Bar'),
                             ]),
                             N('ReturnStatement', '', [
                                 N('StringLiteral', 'Foo!'),
@@ -79,34 +110,13 @@ def example():
                 ])
             ])
         ])
-    topdown = Mapping(config)
-    topdown.add_subtree(source[0][2][1], destination[0][2][1])
-    topdown.add_subtree(source[0][2][3], destination[0][2][3])
-    topdown.add_subtree(source[0][2][4][0][0], destination[0][2][4][0][0])
-    topdown.add_subtree(source[0][2][4][0][1], destination[0][2][4][0][2][1])
-    assert match(topdown, gt.topdown(source, destination))
-
-    bottomup = Mapping(config, topdown)
-    bottomup.add(source[0][2][4][0], destination[0][2][4][0])
-    bottomup.add(source[0][2][4], destination[0][2][4])
-    bottomup.add(source[0][2], destination[0][2])
-    bottomup.add(source[0][2][0], destination[0][2][0])
-    bottomup.add(source[0][2][2], destination[0][2][2])
-    bottomup.add(source[0], destination[0])
-    bottomup.add(source[0][0], destination[0][0])
-    bottomup.add(source[0][1], destination[0][1])
-    bottomup.add(source, destination)
-    assert match(bottomup, gt.bottomup(source, destination, topdown))
-
-    expected = bottomup
-    assert match(expected, gt.mapping(source, destination))
-    print('Passed Example!')
+    return source, destination
 
 
 def match(left: Mapping, right: Mapping):
     return all(id(el) == id(rl) and id(er) == id(rr)
-               for (el, er), (rl, rr) in zip(left, right))
+               for (el, er), (rl, rr) in zip_longest(left.items(), right.items()))
 
 
 if __name__ == "__main__":
-    example()
+    test()
