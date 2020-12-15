@@ -1,0 +1,2172 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>HLAST</title>
+  <meta name="description" content="HLAST">
+  <meta name="author" content="Colorado Reed">
+  <link rel="stylesheet" href="index.css">
+
+</head>
+
+<body>
+
+<div class="floating-timeline">
+<div class="container">
+  <ul>
+    <li>v1</li>
+    <li>v2</li>
+    <li>v3</li>
+    <li>v4</li>
+  </ul>
+</div>
+</div>
+
+<div class="floating-controls">
+    <h3>Controls</h3>
+    <button>Jump to Next Change</button>
+    <button>Export Results</button>
+    <button disabled=true>Propagate Changes</button>
+</div>
+
+
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">   1
+   2
+   3
+   4
+   5
+   6
+   7
+   8
+   9
+  10
+  11
+  12
+  13
+  14
+  15
+  16
+  17
+  18
+  19
+  20
+  21
+  22
+  23
+  24
+  25
+  26
+  27
+  28
+  29
+  30
+  31
+  32
+  33
+  34
+  35
+  36
+  37
+  38
+  39
+  40
+  41
+  42
+  43
+  44
+  45
+  46
+  47
+  48
+  49
+  50
+  51
+  52
+  53
+  54
+  55
+  56
+  57
+  58
+  59
+  60
+  61
+  62
+  63
+  64
+  65
+  66
+  67
+  68
+  69
+  70
+  71
+  72
+  73
+  74
+  75
+  76
+  77
+  78
+  79
+  80
+  81
+  82
+  83
+  84
+  85
+  86
+  87
+  88
+  89
+  90
+  91
+  92
+  93
+  94
+  95
+  96
+  97
+  98
+  99
+ 100
+ 101
+ 102
+ 103
+ 104
+ 105
+ 106
+ 107
+ 108
+ 109
+ 110
+ 111
+ 112
+ 113
+ 114
+ 115
+ 116
+ 117
+ 118
+ 119
+ 120
+ 121
+ 122
+ 123
+ 124
+ 125
+ 126
+ 127
+ 128
+ 129
+ 130
+ 131
+ 132
+ 133
+ 134
+ 135
+ 136
+ 137
+ 138
+ 139
+ 140
+ 141
+ 142
+ 143
+ 144
+ 145
+ 146
+ 147
+ 148
+ 149
+ 150
+ 151
+ 152
+ 153
+ 154
+ 155
+ 156
+ 157
+ 158
+ 159
+ 160
+ 161
+ 162
+ 163
+ 164
+ 165
+ 166
+ 167
+ 168
+ 169
+ 170
+ 171
+ 172
+ 173
+ 174
+ 175
+ 176
+ 177
+ 178
+ 179
+ 180
+ 181
+ 182
+ 183
+ 184
+ 185
+ 186
+ 187
+ 188
+ 189
+ 190
+ 191
+ 192
+ 193
+ 194
+ 195
+ 196
+ 197
+ 198
+ 199
+ 200
+ 201
+ 202
+ 203
+ 204
+ 205
+ 206
+ 207
+ 208
+ 209
+ 210
+ 211
+ 212
+ 213
+ 214
+ 215
+ 216
+ 217
+ 218
+ 219
+ 220
+ 221
+ 222
+ 223
+ 224
+ 225
+ 226
+ 227
+ 228
+ 229
+ 230
+ 231
+ 232
+ 233
+ 234
+ 235
+ 236
+ 237
+ 238
+ 239
+ 240
+ 241
+ 242
+ 243
+ 244
+ 245
+ 246
+ 247
+ 248
+ 249
+ 250
+ 251
+ 252
+ 253
+ 254
+ 255
+ 256
+ 257
+ 258
+ 259
+ 260
+ 261
+ 262
+ 263
+ 264
+ 265
+ 266
+ 267
+ 268
+ 269
+ 270
+ 271
+ 272
+ 273
+ 274
+ 275
+ 276
+ 277
+ 278
+ 279
+ 280
+ 281
+ 282
+ 283
+ 284
+ 285
+ 286
+ 287
+ 288
+ 289
+ 290
+ 291
+ 292
+ 293
+ 294
+ 295
+ 296
+ 297
+ 298
+ 299
+ 300
+ 301
+ 302
+ 303
+ 304
+ 305
+ 306
+ 307
+ 308
+ 309
+ 310
+ 311
+ 312
+ 313
+ 314
+ 315
+ 316
+ 317
+ 318
+ 319
+ 320
+ 321
+ 322
+ 323
+ 324
+ 325
+ 326
+ 327
+ 328
+ 329
+ 330
+ 331
+ 332
+ 333
+ 334
+ 335
+ 336
+ 337
+ 338
+ 339
+ 340
+ 341
+ 342
+ 343
+ 344
+ 345
+ 346
+ 347
+ 348
+ 349
+ 350
+ 351
+ 352
+ 353
+ 354
+ 355
+ 356
+ 357
+ 358
+ 359
+ 360
+ 361
+ 362
+ 363
+ 364
+ 365
+ 366
+ 367
+ 368
+ 369
+ 370
+ 371
+ 372
+ 373
+ 374
+ 375
+ 376
+ 377
+ 378
+ 379
+ 380
+ 381
+ 382
+ 383
+ 384
+ 385
+ 386
+ 387
+ 388
+ 389
+ 390
+ 391
+ 392
+ 393
+ 394
+ 395
+ 396
+ 397
+ 398
+ 399
+ 400
+ 401
+ 402
+ 403
+ 404
+ 405
+ 406
+ 407
+ 408
+ 409
+ 410
+ 411
+ 412
+ 413
+ 414
+ 415
+ 416
+ 417
+ 418
+ 419
+ 420
+ 421
+ 422
+ 423
+ 424
+ 425
+ 426
+ 427
+ 428
+ 429
+ 430
+ 431
+ 432
+ 433
+ 434
+ 435
+ 436
+ 437
+ 438
+ 439
+ 440
+ 441
+ 442
+ 443
+ 444
+ 445
+ 446
+ 447
+ 448
+ 449
+ 450
+ 451
+ 452
+ 453
+ 454
+ 455
+ 456
+ 457
+ 458
+ 459
+ 460
+ 461
+ 462
+ 463
+ 464
+ 465
+ 466
+ 467
+ 468
+ 469
+ 470
+ 471
+ 472
+ 473
+ 474
+ 475
+ 476
+ 477
+ 478
+ 479
+ 480
+ 481
+ 482
+ 483
+ 484
+ 485
+ 486
+ 487
+ 488
+ 489
+ 490
+ 491
+ 492
+ 493
+ 494
+ 495
+ 496
+ 497
+ 498
+ 499
+ 500
+ 501
+ 502
+ 503
+ 504
+ 505
+ 506
+ 507
+ 508
+ 509
+ 510
+ 511
+ 512
+ 513
+ 514
+ 515
+ 516
+ 517
+ 518
+ 519
+ 520
+ 521
+ 522
+ 523
+ 524
+ 525
+ 526
+ 527
+ 528
+ 529
+ 530
+ 531
+ 532
+ 533
+ 534
+ 535
+ 536
+ 537
+ 538
+ 539
+ 540
+ 541
+ 542
+ 543
+ 544
+ 545
+ 546
+ 547
+ 548
+ 549
+ 550
+ 551
+ 552
+ 553
+ 554
+ 555
+ 556
+ 557
+ 558
+ 559
+ 560
+ 561
+ 562
+ 563
+ 564
+ 565
+ 566
+ 567
+ 568
+ 569
+ <span style="background: green; font-weight:bold; color: white; padding: 3px 0; cursor: pointer;">570</span>
+ 571
+ 572
+ 573
+ 574
+ 575
+ 576
+ 577
+ 578
+ 579
+ 580
+ 581
+ 582
+ 583
+ 584
+ 585
+ 586
+ 587
+ 588
+ 589
+ 590
+ 591
+ 592
+ 593
+ 594
+ 595
+ 596
+ 597
+ 598
+ 599
+ 600
+ 601
+ 602
+ 603
+ 604
+ 605
+ 606
+ 607
+ 608
+ 609
+ 610
+ 611
+ 612
+ 613
+ 614
+ 615
+ 616
+ 617
+ 618
+ 619
+ 620
+ 621
+ 622
+ 623
+ 624
+ 625
+ 626
+ 627
+ 628
+ 629
+ 630
+ 631
+ 632
+ 633
+ 634
+ 635
+ 636
+ 637
+ 638
+ 639
+ 640
+ 641
+ 642
+ 643
+ 644
+ 645
+ 646
+ 647
+ 648
+ 649
+ 650
+ 651
+ 652
+ 653
+ 654
+ 655
+ 656
+ 657
+ 658
+ 659
+ 660
+ 661
+ 662
+ 663
+ 664
+ 665
+ 666
+ 667
+ 668
+ 669
+ 670
+ 671
+ 672
+ 673
+ 674
+ 675
+ 676
+ 677
+ 678
+ 679
+ 680
+ 681
+ 682
+ 683
+ 684
+ 685
+ 686
+ 687
+ 688
+ 689
+ 690
+ 691
+ 692
+ 693
+ 694
+ 695
+ 696
+ 697
+ 698
+ 699
+ 700
+ 701
+ 702
+ 703
+ 704
+ 705
+ 706
+ 707
+ 708
+ 709
+ 710
+ 711
+ 712
+ 713
+ 714
+ 715
+ 716
+ 717
+ 718
+ 719
+ 720
+ 721
+ 722
+ 723
+ 724
+ 725
+ 726
+ 727
+ 728
+ 729
+ 730
+ 731
+ 732
+ 733
+ 734
+ 735
+ 736
+ 737
+ 738
+ 739
+ 740
+ 741
+ 742
+ 743
+ 744
+ 745
+ 746
+ 747
+ 748
+ 749
+ 750
+ 751
+ 752
+ 753
+ 754
+ 755
+ 756
+ 757
+ 758
+ 759
+ 760
+ 761
+ 762
+ 763
+ 764
+ 765
+ 766
+ 767
+ 768
+ 769
+ 770
+ 771
+ 772
+ 773
+ 774
+ 775
+ 776
+ 777
+ 778
+ 779
+ 780
+ 781
+ 782
+ 783
+ 784
+ 785
+ 786
+ 787
+ 788
+ 789
+ 790
+ 791
+ 792
+ 793
+ 794
+ 795
+ 796
+ 797
+ 798
+ 799
+ 800
+ 801
+ 802
+ 803
+ 804
+ 805
+ 806
+ 807
+ 808
+ 809
+ 810
+ 811
+ 812
+ 813
+ 814
+ 815
+ 816
+ 817
+ 818
+ 819
+ 820
+ 821
+ 822
+ 823
+ 824
+ 825
+ 826
+ 827
+ 828
+ 829
+ 830
+ 831
+ 832
+ 833
+ 834
+ 835
+ 836
+ 837
+ 838
+ 839
+ 840
+ 841
+ 842
+ 843
+ 844
+ 845
+ 846
+ 847
+ 848
+ 849
+ 850
+ 851
+ 852
+ 853
+ 854
+ 855
+ 856
+ 857
+ 858
+ 859
+ 860
+ 861
+ 862
+ 863
+ 864
+ 865
+ 866
+ 867
+ 868
+ 869
+ 870
+ 871
+ 872
+ 873
+ 874
+ 875
+ 876
+ 877
+ 878
+ 879
+ 880
+ 881
+ 882
+ 883
+ 884
+ 885
+ 886
+ 887
+ 888
+ 889
+ 890
+ 891
+ 892
+ 893
+ 894
+ 895
+ 896
+ 897
+ 898
+ 899
+ 900
+ 901
+ 902
+ 903
+ 904
+ 905
+ 906
+ 907
+ 908
+ 909
+ 910
+ 911
+ 912
+ 913
+ 914
+ 915
+ 916
+ 917
+ 918
+ 919
+ 920
+ 921
+ 922
+ 923
+ 924
+ 925
+ 926
+ 927
+ 928
+ 929
+ 930
+ 931
+ 932
+ 933
+ 934
+ 935
+ 936
+ 937
+ 938
+ 939
+ 940
+ 941
+ 942
+ 943
+ 944
+ 945
+ 946
+ 947
+ 948
+ 949
+ 950
+ 951
+ 952
+ 953
+ 954
+ 955
+ 956
+ 957
+ 958
+ 959
+ 960
+ 961
+ 962
+ 963
+ 964
+ 965
+ 966
+ 967
+ 968
+ 969
+ 970
+ 971
+ 972
+ 973
+ 974
+ 975
+ 976
+ 977
+ 978
+ 979
+ 980
+ 981
+ 982
+ 983
+ 984
+ 985
+ 986
+ 987
+ 988
+ 989
+ 990
+ 991
+ 992
+ 993
+ 994
+ 995
+ 996
+ 997
+ 998
+ 999
+1000
+1001
+1002
+1003
+1004
+1005
+1006
+1007
+1008
+1009
+1010
+1011
+1012
+1013
+1014
+1015
+1016
+1017
+1018
+1019
+1020
+1021
+1022
+1023
+1024
+1025
+1026
+1027
+1028
+1029
+1030
+1031
+1032
+1033
+1034
+1035
+1036
+1037
+1038
+1039
+1040
+1041
+1042
+1043
+1044
+1045
+1046
+1047
+1048
+1049
+1050
+1051
+1052
+1053
+1054
+1055
+1056
+1057
+1058
+1059
+1060
+1061
+1062
+1063
+1064
+1065
+1066
+1067
+1068</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #888888"># Copyright (c) Facebook, Inc. and its affiliates.</span>
+<span style="color: #888888">#</span>
+<span style="color: #888888"># This source code is licensed under the MIT license found in the</span>
+<span style="color: #888888"># LICENSE file in the root directory of this source tree.</span>
+
+<span style="color: #DD4422">&quot;&quot;&quot;</span>
+<span style="color: #DD4422">Train a network across multiple GPUs.</span>
+<span style="color: #DD4422">&quot;&quot;&quot;</span>
+
+<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">contextlib</span>
+<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">itertools</span> <span style="color: #008800; font-weight: bold">import</span> chain
+<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">logging</span>
+<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">sys</span>
+<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">time</span>
+<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">typing</span> <span style="color: #008800; font-weight: bold">import</span> Any, Dict, List
+
+<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">torch</span>
+
+<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">fairseq</span> <span style="color: #008800; font-weight: bold">import</span> checkpoint_utils, distributed_utils, models, optim, utils
+<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">fairseq.file_io</span> <span style="color: #008800; font-weight: bold">import</span> PathManager
+<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">fairseq.logging</span> <span style="color: #008800; font-weight: bold">import</span> meters, metrics
+<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">fairseq.nan_detector</span> <span style="color: #008800; font-weight: bold">import</span> NanDetector
+<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">fairseq.optim</span> <span style="color: #008800; font-weight: bold">import</span> lr_scheduler
+
+
+logger <span style="color: #333333">=</span> logging<span style="color: #333333">.</span>getLogger(__name__)
+
+
+<span style="color: #008800; font-weight: bold">class</span> <span style="color: #BB0066; font-weight: bold">Trainer</span>(<span style="color: #007020">object</span>):
+    <span style="color: #DD4422">&quot;&quot;&quot;Main class for data parallel training.</span>
+
+<span style="color: #DD4422">    This class supports synchronous distributed data parallel training,</span>
+<span style="color: #DD4422">    where multiple workers each have a full model replica and gradients</span>
+<span style="color: #DD4422">    are accumulated across workers before each update. We use</span>
+<span style="color: #DD4422">    :class:`~torch.nn.parallel.DistributedDataParallel` to handle</span>
+<span style="color: #DD4422">    communication of the gradients across workers.</span>
+<span style="color: #DD4422">    &quot;&quot;&quot;</span>
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">__init__</span>(<span style="color: #007020">self</span>, args, task, model, criterion, quantizer<span style="color: #333333">=</span><span style="color: #007020">None</span>):
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>args <span style="color: #333333">=</span> args
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>task <span style="color: #333333">=</span> task
+
+        <span style="color: #888888"># catalog shared parameters</span>
+        shared_params <span style="color: #333333">=</span> _catalog_shared_params(model)
+
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>tpu <span style="color: #333333">=</span> <span style="color: #007020">getattr</span>(args, <span style="background-color: #fff0f0">&#39;tpu&#39;</span>, <span style="color: #007020">False</span>)
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>cuda <span style="color: #333333">=</span> torch<span style="color: #333333">.</span>cuda<span style="color: #333333">.</span>is_available() <span style="color: #000000; font-weight: bold">and</span> <span style="color: #000000; font-weight: bold">not</span> args<span style="color: #333333">.</span>cpu <span style="color: #000000; font-weight: bold">and</span> <span style="color: #000000; font-weight: bold">not</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>tpu
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>cuda:
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>device <span style="color: #333333">=</span> torch<span style="color: #333333">.</span>device(<span style="background-color: #fff0f0">&#39;cuda&#39;</span>)
+        <span style="color: #008800; font-weight: bold">elif</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>tpu:
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>device <span style="color: #333333">=</span> utils<span style="color: #333333">.</span>get_tpu_device(args)
+        <span style="color: #008800; font-weight: bold">else</span>:
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>device <span style="color: #333333">=</span> torch<span style="color: #333333">.</span>device(<span style="background-color: #fff0f0">&#39;cpu&#39;</span>)
+
+        <span style="color: #888888"># copy model and criterion to current device/dtype</span>
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>_criterion <span style="color: #333333">=</span> criterion
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>_model <span style="color: #333333">=</span> model
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>tpu:
+            <span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">torch_xla.core.xla_model</span> <span style="color: #008800; font-weight: bold">as</span> <span style="color: #0e84b5; font-weight: bold">xm</span>
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>_model <span style="color: #333333">=</span> xm<span style="color: #333333">.</span>send_cpu_data_to_device(<span style="color: #007020">self</span><span style="color: #333333">.</span>_model, <span style="color: #007020">self</span><span style="color: #333333">.</span>device)
+        <span style="color: #008800; font-weight: bold">if</span> args<span style="color: #333333">.</span>fp16:
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>_criterion <span style="color: #333333">=</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_criterion<span style="color: #333333">.</span>half()
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>_model <span style="color: #333333">=</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_model<span style="color: #333333">.</span>half()
+        <span style="color: #008800; font-weight: bold">elif</span> args<span style="color: #333333">.</span>bf16:
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>_criterion <span style="color: #333333">=</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_criterion<span style="color: #333333">.</span>to(dtype<span style="color: #333333">=</span>torch<span style="color: #333333">.</span>bfloat16)
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>_model <span style="color: #333333">=</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_model<span style="color: #333333">.</span>to(dtype<span style="color: #333333">=</span>torch<span style="color: #333333">.</span>bfloat16)
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #000000; font-weight: bold">not</span> args<span style="color: #333333">.</span>pipeline_model_parallel:
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>_criterion <span style="color: #333333">=</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_criterion<span style="color: #333333">.</span>to(device<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>device)
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>_model <span style="color: #333333">=</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_model<span style="color: #333333">.</span>to(device<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>device)
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>pipeline_model_parallel <span style="color: #333333">=</span> args<span style="color: #333333">.</span>pipeline_model_parallel
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>last_device <span style="color: #333333">=</span> <span style="color: #007020">None</span>
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>cuda <span style="color: #000000; font-weight: bold">and</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>pipeline_model_parallel:
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>last_device <span style="color: #333333">=</span> torch<span style="color: #333333">.</span>device(args<span style="color: #333333">.</span>pipeline_devices[<span style="color: #333333">-</span><span style="color: #0000DD; font-weight: bold">1</span>])
+
+        <span style="color: #888888"># check that shared parameters are preserved after device transfer</span>
+        <span style="color: #008800; font-weight: bold">for</span> shared_param <span style="color: #000000; font-weight: bold">in</span> shared_params:
+            ref <span style="color: #333333">=</span> _get_module_by_path(<span style="color: #007020">self</span><span style="color: #333333">.</span>_model, shared_param[<span style="color: #0000DD; font-weight: bold">0</span>])
+            <span style="color: #008800; font-weight: bold">for</span> path <span style="color: #000000; font-weight: bold">in</span> shared_param[<span style="color: #0000DD; font-weight: bold">1</span>:]:
+                logger<span style="color: #333333">.</span>info(
+                    <span style="background-color: #fff0f0">&#39;detected shared parameter: {} &lt;- {}&#39;</span><span style="color: #333333">.</span>format(shared_param[<span style="color: #0000DD; font-weight: bold">0</span>], path)
+                )
+                _set_module_by_path(<span style="color: #007020">self</span><span style="color: #333333">.</span>_model, path, ref)
+
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>_dummy_batch <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;DUMMY&quot;</span>  <span style="color: #888888"># indicates we don&#39;t have a dummy batch at first</span>
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>_lr_scheduler <span style="color: #333333">=</span> <span style="color: #007020">None</span>
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>_num_updates <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>_num_xla_compiles <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>  <span style="color: #888888"># for TPUs</span>
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>_optim_history <span style="color: #333333">=</span> <span style="color: #007020">None</span>
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>_optimizer <span style="color: #333333">=</span> <span style="color: #007020">None</span>
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>_warn_once <span style="color: #333333">=</span> <span style="color: #007020">set</span>()
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>_wrapped_criterion <span style="color: #333333">=</span> <span style="color: #007020">None</span>
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>_wrapped_model <span style="color: #333333">=</span> <span style="color: #007020">None</span>
+
+        <span style="color: #888888"># TODO(myleott): support tpu</span>
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>cuda <span style="color: #000000; font-weight: bold">and</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>data_parallel_world_size <span style="color: #333333">&gt;</span> <span style="color: #0000DD; font-weight: bold">1</span>:
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>_grad_norm_buf <span style="color: #333333">=</span> torch<span style="color: #333333">.</span>cuda<span style="color: #333333">.</span>DoubleTensor(<span style="color: #007020">self</span><span style="color: #333333">.</span>data_parallel_world_size)
+        <span style="color: #008800; font-weight: bold">else</span>:
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>_grad_norm_buf <span style="color: #333333">=</span> <span style="color: #007020">None</span>
+
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>quantizer <span style="color: #333333">=</span> quantizer
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>quantizer <span style="color: #000000; font-weight: bold">is</span> <span style="color: #000000; font-weight: bold">not</span> <span style="color: #007020">None</span>:
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>quantizer<span style="color: #333333">.</span>set_trainer(<span style="color: #007020">self</span>)
+
+        <span style="color: #888888"># get detailed cuda environment</span>
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>cuda:
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>cuda_env <span style="color: #333333">=</span> utils<span style="color: #333333">.</span>CudaEnvironment()
+            <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>data_parallel_world_size <span style="color: #333333">&gt;</span> <span style="color: #0000DD; font-weight: bold">1</span>:
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>cuda_env_arr <span style="color: #333333">=</span> distributed_utils<span style="color: #333333">.</span>all_gather_list(<span style="color: #007020">self</span><span style="color: #333333">.</span>cuda_env)
+            <span style="color: #008800; font-weight: bold">else</span>:
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>cuda_env_arr <span style="color: #333333">=</span> [<span style="color: #007020">self</span><span style="color: #333333">.</span>cuda_env]
+            <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>data_parallel_rank <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">0</span>:
+                utils<span style="color: #333333">.</span>CudaEnvironment<span style="color: #333333">.</span>pretty_print_cuda_env_list(<span style="color: #007020">self</span><span style="color: #333333">.</span>cuda_env_arr)
+        <span style="color: #008800; font-weight: bold">else</span>:
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>cuda_env <span style="color: #333333">=</span> <span style="color: #007020">None</span>
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>cuda_env_arr <span style="color: #333333">=</span> <span style="color: #007020">None</span>
+
+        metrics<span style="color: #333333">.</span>log_start_time(<span style="background-color: #fff0f0">&quot;wall&quot;</span>, priority<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">790</span>, <span style="color: #007020">round</span><span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">0</span>)
+
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>_start_time <span style="color: #333333">=</span> time<span style="color: #333333">.</span>time()
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>_previous_training_time <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>_cumulative_training_time <span style="color: #333333">=</span> <span style="color: #007020">None</span>
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">reinitialize</span>(<span style="color: #007020">self</span>):
+        <span style="color: #DD4422">&quot;&quot;&quot;Reinitialize the Trainer, typically after model params change.&quot;&quot;&quot;</span>
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>_lr_scheduler <span style="color: #333333">=</span> <span style="color: #007020">None</span>
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>_optimizer <span style="color: #333333">=</span> <span style="color: #007020">None</span>
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>_wrapped_criterion <span style="color: #333333">=</span> <span style="color: #007020">None</span>
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>_wrapped_model <span style="color: #333333">=</span> <span style="color: #007020">None</span>
+
+    <span style="color: #555555; font-weight: bold">@property</span>
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">data_parallel_world_size</span>(<span style="color: #007020">self</span>):
+        <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>distributed_world_size
+
+    <span style="color: #555555; font-weight: bold">@property</span>
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">data_parallel_process_group</span>(<span style="color: #007020">self</span>):
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>tpu:
+            <span style="color: #008800; font-weight: bold">return</span> (<span style="background-color: #fff0f0">&#39;tpu&#39;</span>, <span style="color: #007020">None</span>)
+        <span style="color: #008800; font-weight: bold">else</span>:
+            <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">None</span>
+
+    <span style="color: #555555; font-weight: bold">@property</span>
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">data_parallel_rank</span>(<span style="color: #007020">self</span>):
+        <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>distributed_rank
+
+    <span style="color: #555555; font-weight: bold">@property</span>
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">is_data_parallel_master</span>(<span style="color: #007020">self</span>):
+        <span style="color: #008800; font-weight: bold">return</span> distributed_utils<span style="color: #333333">.</span>is_master(<span style="color: #007020">self</span><span style="color: #333333">.</span>args)
+
+    <span style="color: #555555; font-weight: bold">@property</span>
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">criterion</span>(<span style="color: #007020">self</span>):
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_wrapped_criterion <span style="color: #000000; font-weight: bold">is</span> <span style="color: #007020">None</span>:
+            <span style="color: #008800; font-weight: bold">if</span> (
+                utils<span style="color: #333333">.</span>has_parameters(<span style="color: #007020">self</span><span style="color: #333333">.</span>_criterion)
+                <span style="color: #000000; font-weight: bold">and</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>data_parallel_world_size <span style="color: #333333">&gt;</span> <span style="color: #0000DD; font-weight: bold">1</span>
+                <span style="color: #000000; font-weight: bold">and</span> <span style="color: #000000; font-weight: bold">not</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>use_bmuf
+                <span style="color: #000000; font-weight: bold">and</span> <span style="color: #000000; font-weight: bold">not</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>tpu
+            ):
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>_wrapped_criterion <span style="color: #333333">=</span> models<span style="color: #333333">.</span>DistributedFairseqModel(
+                    <span style="color: #007020">self</span><span style="color: #333333">.</span>args, <span style="color: #007020">self</span><span style="color: #333333">.</span>_criterion,
+                    process_group<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>data_parallel_process_group
+                )
+            <span style="color: #008800; font-weight: bold">else</span>:
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>_wrapped_criterion <span style="color: #333333">=</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_criterion
+        <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_wrapped_criterion
+
+    <span style="color: #555555; font-weight: bold">@property</span>
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">model</span>(<span style="color: #007020">self</span>):
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_wrapped_model <span style="color: #000000; font-weight: bold">is</span> <span style="color: #007020">None</span>:
+            <span style="color: #008800; font-weight: bold">if</span> (
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>data_parallel_world_size <span style="color: #333333">&gt;</span> <span style="color: #0000DD; font-weight: bold">1</span>
+                <span style="color: #000000; font-weight: bold">and</span> <span style="color: #000000; font-weight: bold">not</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>use_bmuf
+                <span style="color: #000000; font-weight: bold">and</span> <span style="color: #000000; font-weight: bold">not</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>tpu
+            ):
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>_wrapped_model <span style="color: #333333">=</span> models<span style="color: #333333">.</span>DistributedFairseqModel(
+                    <span style="color: #007020">self</span><span style="color: #333333">.</span>args, <span style="color: #007020">self</span><span style="color: #333333">.</span>_model,
+                    process_group<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>data_parallel_process_group
+                )
+            <span style="color: #008800; font-weight: bold">else</span>:
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>_wrapped_model <span style="color: #333333">=</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_model
+        <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_wrapped_model
+
+    <span style="color: #555555; font-weight: bold">@property</span>
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">optimizer</span>(<span style="color: #007020">self</span>):
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_optimizer <span style="color: #000000; font-weight: bold">is</span> <span style="color: #007020">None</span>:
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>_build_optimizer()
+        <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_optimizer
+
+    <span style="color: #555555; font-weight: bold">@property</span>
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">lr_scheduler</span>(<span style="color: #007020">self</span>):
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_lr_scheduler <span style="color: #000000; font-weight: bold">is</span> <span style="color: #007020">None</span>:
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>_build_optimizer()  <span style="color: #888888"># this will initialize self._lr_scheduler</span>
+        <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_lr_scheduler
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">_build_optimizer</span>(<span style="color: #007020">self</span>):
+        params <span style="color: #333333">=</span> <span style="color: #007020">list</span>(
+            <span style="color: #007020">filter</span>(
+                <span style="color: #008800; font-weight: bold">lambda</span> p: p<span style="color: #333333">.</span>requires_grad,
+                chain(<span style="color: #007020">self</span><span style="color: #333333">.</span>model<span style="color: #333333">.</span>parameters(), <span style="color: #007020">self</span><span style="color: #333333">.</span>criterion<span style="color: #333333">.</span>parameters()),
+            )
+        )
+
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>fp16 <span style="color: #000000; font-weight: bold">or</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>bf16:
+            <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>cuda <span style="color: #000000; font-weight: bold">and</span> torch<span style="color: #333333">.</span>cuda<span style="color: #333333">.</span>get_device_capability(<span style="color: #0000DD; font-weight: bold">0</span>)[<span style="color: #0000DD; font-weight: bold">0</span>] <span style="color: #333333">&lt;</span> <span style="color: #0000DD; font-weight: bold">7</span>:
+                logger<span style="color: #333333">.</span>info(
+                    <span style="background-color: #fff0f0">&quot;NOTE: your device does NOT support faster training with --fp16, &quot;</span>
+                    <span style="background-color: #fff0f0">&quot;please switch to FP32 which is likely to be faster&quot;</span>
+                )
+            <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>memory_efficient_fp16 <span style="color: #000000; font-weight: bold">or</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>memory_efficient_bf16:
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>_optimizer <span style="color: #333333">=</span> optim<span style="color: #333333">.</span>MemoryEfficientFP16Optimizer<span style="color: #333333">.</span>build_optimizer(
+                    <span style="color: #007020">self</span><span style="color: #333333">.</span>args, params
+                )
+            <span style="color: #008800; font-weight: bold">else</span>:
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>_optimizer <span style="color: #333333">=</span> optim<span style="color: #333333">.</span>FP16Optimizer<span style="color: #333333">.</span>build_optimizer(<span style="color: #007020">self</span><span style="color: #333333">.</span>args, params)
+        <span style="color: #008800; font-weight: bold">else</span>:
+            <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>cuda <span style="color: #000000; font-weight: bold">and</span> torch<span style="color: #333333">.</span>cuda<span style="color: #333333">.</span>get_device_capability(<span style="color: #0000DD; font-weight: bold">0</span>)[<span style="color: #0000DD; font-weight: bold">0</span>] <span style="color: #333333">&gt;=</span> <span style="color: #0000DD; font-weight: bold">7</span>:
+                logger<span style="color: #333333">.</span>info(<span style="background-color: #fff0f0">&quot;NOTE: your device may support faster training with --fp16&quot;</span>)
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>_optimizer <span style="color: #333333">=</span> optim<span style="color: #333333">.</span>build_optimizer(<span style="color: #007020">self</span><span style="color: #333333">.</span>args, params)
+
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>use_bmuf:
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>_optimizer <span style="color: #333333">=</span> optim<span style="color: #333333">.</span>FairseqBMUF(<span style="color: #007020">self</span><span style="color: #333333">.</span>args, <span style="color: #007020">self</span><span style="color: #333333">.</span>_optimizer)
+
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>zero_sharding <span style="color: #333333">==</span> <span style="background-color: #fff0f0">&#39;os&#39;</span>:
+            <span style="color: #008800; font-weight: bold">if</span> (<span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>fp16
+                    <span style="color: #000000; font-weight: bold">and</span> <span style="color: #000000; font-weight: bold">not</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>memory_efficient_fp16
+                    <span style="color: #000000; font-weight: bold">and</span> <span style="color: #000000; font-weight: bold">not</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>memory_efficient_bf16
+            ) <span style="color: #000000; font-weight: bold">and</span> <span style="color: #000000; font-weight: bold">not</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>fp16_no_flatten_grads:
+                <span style="color: #008800; font-weight: bold">raise</span> <span style="color: #FF0000; font-weight: bold">ValueError</span>(
+                        <span style="background-color: #fff0f0">&quot;ZeRO is incomptabile with fp16 and flattened grads. &quot;</span>
+                        <span style="background-color: #fff0f0">&quot;Please use --fp16-no-flatten-grads&quot;</span>
+                )
+            <span style="color: #008800; font-weight: bold">else</span>:
+                optim<span style="color: #333333">.</span>shard_(<span style="color: #007020">self</span><span style="color: #333333">.</span>args, <span style="color: #007020">self</span><span style="color: #333333">.</span>_optimizer, <span style="color: #007020">self</span><span style="color: #333333">.</span>data_parallel_process_group)
+
+        <span style="color: #888888"># We should initialize the learning rate scheduler immediately after</span>
+        <span style="color: #888888"># building the optimizer, so that the initial learning rate is set.</span>
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>_lr_scheduler <span style="color: #333333">=</span> lr_scheduler<span style="color: #333333">.</span>build_lr_scheduler(<span style="color: #007020">self</span><span style="color: #333333">.</span>args, <span style="color: #007020">self</span><span style="color: #333333">.</span>optimizer)
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>_lr_scheduler<span style="color: #333333">.</span>step_update(<span style="color: #0000DD; font-weight: bold">0</span>)
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">consolidate_optimizer</span>(<span style="color: #007020">self</span>):
+        <span style="color: #DD4422">&quot;&quot;&quot;For OSS, we need to consolidate the state dict.&quot;&quot;&quot;</span>
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">hasattr</span>(<span style="color: #007020">self</span><span style="color: #333333">.</span>optimizer<span style="color: #333333">.</span>optimizer, <span style="background-color: #fff0f0">&quot;consolidate_state_dict&quot;</span>):
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>optimizer<span style="color: #333333">.</span>optimizer<span style="color: #333333">.</span>consolidate_state_dict()
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">save_checkpoint</span>(<span style="color: #007020">self</span>, filename, extra_state):
+        <span style="color: #DD4422">&quot;&quot;&quot;Save all training state in a checkpoint file.&quot;&quot;&quot;</span>
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>is_data_parallel_master:  <span style="color: #888888"># only save one checkpoint</span>
+            extra_state[<span style="background-color: #fff0f0">&quot;metrics&quot;</span>] <span style="color: #333333">=</span> metrics<span style="color: #333333">.</span>state_dict()
+            extra_state[<span style="background-color: #fff0f0">&quot;previous_training_time&quot;</span>] <span style="color: #333333">=</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>cumulative_training_time()
+            checkpoint_utils<span style="color: #333333">.</span>save_state(
+                filename,
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>args,
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>get_model()<span style="color: #333333">.</span>state_dict(),
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>get_criterion(),
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>optimizer,
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>lr_scheduler,
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>get_num_updates(),
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>_optim_history,
+                extra_state,
+            )
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">load_checkpoint</span>(
+        <span style="color: #007020">self</span>,
+        filename,
+        reset_optimizer<span style="color: #333333">=</span><span style="color: #007020">False</span>,
+        reset_lr_scheduler<span style="color: #333333">=</span><span style="color: #007020">False</span>,
+        optimizer_overrides<span style="color: #333333">=</span><span style="color: #007020">None</span>,
+        reset_meters<span style="color: #333333">=</span><span style="color: #007020">False</span>,
+    ):
+        <span style="color: #DD4422">&quot;&quot;&quot;Load all training state from a checkpoint file.&quot;&quot;&quot;</span>
+        extra_state, <span style="color: #007020">self</span><span style="color: #333333">.</span>_optim_history, last_optim_state <span style="color: #333333">=</span> <span style="color: #007020">None</span>, [], <span style="color: #007020">None</span>
+
+        bexists <span style="color: #333333">=</span> PathManager<span style="color: #333333">.</span>isfile(filename)
+        <span style="color: #008800; font-weight: bold">if</span> bexists:
+            state <span style="color: #333333">=</span> checkpoint_utils<span style="color: #333333">.</span>load_checkpoint_to_cpu(filename)
+
+            <span style="color: #888888"># load model parameters</span>
+            <span style="color: #008800; font-weight: bold">try</span>:
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>get_model()<span style="color: #333333">.</span>load_state_dict(
+                    state[<span style="background-color: #fff0f0">&quot;model&quot;</span>], strict<span style="color: #333333">=</span><span style="color: #007020">True</span>, args<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>args
+                )
+                <span style="color: #008800; font-weight: bold">if</span> utils<span style="color: #333333">.</span>has_parameters(<span style="color: #007020">self</span><span style="color: #333333">.</span>get_criterion()):
+                    <span style="color: #007020">self</span><span style="color: #333333">.</span>get_criterion()<span style="color: #333333">.</span>load_state_dict(
+                        state[<span style="background-color: #fff0f0">&quot;criterion&quot;</span>], strict<span style="color: #333333">=</span><span style="color: #007020">True</span>
+                    )
+            <span style="color: #008800; font-weight: bold">except</span> <span style="color: #FF0000; font-weight: bold">Exception</span>:
+                <span style="color: #008800; font-weight: bold">raise</span> <span style="color: #FF0000; font-weight: bold">Exception</span>(
+                    <span style="background-color: #fff0f0">&quot;Cannot load model parameters from checkpoint {}; &quot;</span>
+                    <span style="background-color: #fff0f0">&quot;please ensure that the architectures match.&quot;</span><span style="color: #333333">.</span>format(filename)
+                )
+
+            extra_state <span style="color: #333333">=</span> state[<span style="background-color: #fff0f0">&quot;extra_state&quot;</span>]
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>_optim_history <span style="color: #333333">=</span> state[<span style="background-color: #fff0f0">&quot;optimizer_history&quot;</span>]
+            last_optim_state <span style="color: #333333">=</span> state<span style="color: #333333">.</span>get(<span style="background-color: #fff0f0">&quot;last_optimizer_state&quot;</span>, <span style="color: #007020">None</span>)
+
+        <span style="color: #008800; font-weight: bold">if</span> last_optim_state <span style="color: #000000; font-weight: bold">is</span> <span style="color: #000000; font-weight: bold">not</span> <span style="color: #007020">None</span> <span style="color: #000000; font-weight: bold">and</span> <span style="color: #000000; font-weight: bold">not</span> reset_optimizer:
+            <span style="color: #888888"># rebuild optimizer after loading model, since params may have changed</span>
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>_build_optimizer()
+
+            <span style="color: #888888"># only reload optimizer and lr_scheduler if they match</span>
+            last_optim <span style="color: #333333">=</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_optim_history[<span style="color: #333333">-</span><span style="color: #0000DD; font-weight: bold">1</span>]
+            <span style="color: #008800; font-weight: bold">assert</span> (
+                last_optim[<span style="background-color: #fff0f0">&quot;criterion_name&quot;</span>] <span style="color: #333333">==</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>get_criterion()<span style="color: #333333">.</span>__class__<span style="color: #333333">.</span>__name__
+            ), <span style="background-color: #fff0f0">&quot;Criterion does not match; please reset the optimizer (--reset-optimizer).&quot;</span>
+            <span style="color: #008800; font-weight: bold">assert</span> (
+                last_optim[<span style="background-color: #fff0f0">&quot;optimizer_name&quot;</span>] <span style="color: #333333">==</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>optimizer<span style="color: #333333">.</span>__class__<span style="color: #333333">.</span>__name__
+            ), <span style="background-color: #fff0f0">&quot;Optimizer does not match; please reset the optimizer (--reset-optimizer).&quot;</span>
+
+            <span style="color: #008800; font-weight: bold">if</span> <span style="color: #000000; font-weight: bold">not</span> reset_lr_scheduler:
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>lr_scheduler<span style="color: #333333">.</span>load_state_dict(last_optim[<span style="background-color: #fff0f0">&quot;lr_scheduler_state&quot;</span>])
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>optimizer<span style="color: #333333">.</span>load_state_dict(last_optim_state, optimizer_overrides)
+
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>set_num_updates(last_optim[<span style="background-color: #fff0f0">&quot;num_updates&quot;</span>])
+
+        <span style="color: #008800; font-weight: bold">if</span> extra_state <span style="color: #000000; font-weight: bold">is</span> <span style="color: #000000; font-weight: bold">not</span> <span style="color: #007020">None</span>:
+            epoch <span style="color: #333333">=</span> extra_state[<span style="background-color: #fff0f0">&quot;train_iterator&quot;</span>][<span style="background-color: #fff0f0">&quot;epoch&quot;</span>]
+            logger<span style="color: #333333">.</span>info(
+                <span style="background-color: #fff0f0">&quot;loaded checkpoint {} (epoch {} @ {} updates)&quot;</span><span style="color: #333333">.</span>format(
+                    filename, epoch, <span style="color: #007020">self</span><span style="color: #333333">.</span>get_num_updates()
+                )
+            )
+
+            <span style="color: #008800; font-weight: bold">if</span> <span style="background-color: #fff0f0">&quot;previous_training_time&quot;</span> <span style="color: #000000; font-weight: bold">in</span> extra_state:
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>_previous_training_time <span style="color: #333333">=</span> extra_state[<span style="background-color: #fff0f0">&quot;previous_training_time&quot;</span>]
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>_start_time <span style="color: #333333">=</span> time<span style="color: #333333">.</span>time()
+
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>lr_step(epoch)
+
+            <span style="color: #008800; font-weight: bold">if</span> <span style="background-color: #fff0f0">&quot;metrics&quot;</span> <span style="color: #000000; font-weight: bold">in</span> extra_state <span style="color: #000000; font-weight: bold">and</span> <span style="color: #000000; font-weight: bold">not</span> reset_meters:
+                metrics<span style="color: #333333">.</span>load_state_dict(extra_state[<span style="background-color: #fff0f0">&quot;metrics&quot;</span>])
+
+                <span style="color: #888888"># reset TimeMeters, since their start times don&#39;t make sense anymore</span>
+                <span style="color: #008800; font-weight: bold">for</span> meter <span style="color: #000000; font-weight: bold">in</span> metrics<span style="color: #333333">.</span>get_meters(<span style="background-color: #fff0f0">&quot;default&quot;</span>):
+                    <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">isinstance</span>(meter, meters<span style="color: #333333">.</span>TimeMeter):
+                        meter<span style="color: #333333">.</span>reset()
+        <span style="color: #008800; font-weight: bold">else</span>:
+            logger<span style="color: #333333">.</span>info(<span style="background-color: #fff0f0">&quot;no existing checkpoint found {}&quot;</span><span style="color: #333333">.</span>format(filename))
+
+        <span style="color: #008800; font-weight: bold">return</span> extra_state
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">get_train_iterator</span>(
+        <span style="color: #007020">self</span>,
+        epoch,
+        combine<span style="color: #333333">=</span><span style="color: #007020">True</span>,
+        load_dataset<span style="color: #333333">=</span><span style="color: #007020">True</span>,
+        data_selector<span style="color: #333333">=</span><span style="color: #007020">None</span>,
+        shard_batch_itr<span style="color: #333333">=</span><span style="color: #007020">True</span>,
+        disable_iterator_cache<span style="color: #333333">=</span><span style="color: #007020">False</span>,
+    ):
+        <span style="color: #DD4422">&quot;&quot;&quot;Return an EpochBatchIterator over the training set for a given epoch.&quot;&quot;&quot;</span>
+        <span style="color: #008800; font-weight: bold">if</span> load_dataset:
+            logger<span style="color: #333333">.</span>info(<span style="background-color: #fff0f0">&quot;loading train data for epoch {}&quot;</span><span style="color: #333333">.</span>format(epoch))
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>task<span style="color: #333333">.</span>load_dataset(
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>train_subset,
+                epoch<span style="color: #333333">=</span>epoch,
+                combine<span style="color: #333333">=</span>combine,
+                data_selector<span style="color: #333333">=</span>data_selector,
+            )
+        <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>task<span style="color: #333333">.</span>get_batch_iterator(
+            dataset<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>task<span style="color: #333333">.</span>dataset(<span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>train_subset),
+            max_tokens<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>max_tokens,
+            max_sentences<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>max_sentences,
+            max_positions<span style="color: #333333">=</span>utils<span style="color: #333333">.</span>resolve_max_positions(
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>task<span style="color: #333333">.</span>max_positions(),
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>model<span style="color: #333333">.</span>max_positions(),
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>max_tokens,
+            ),
+            ignore_invalid_inputs<span style="color: #333333">=</span><span style="color: #007020">True</span>,
+            required_batch_size_multiple<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>required_batch_size_multiple,
+            seed<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>seed,
+            num_shards<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>data_parallel_world_size <span style="color: #008800; font-weight: bold">if</span> shard_batch_itr <span style="color: #008800; font-weight: bold">else</span> <span style="color: #0000DD; font-weight: bold">1</span>,
+            shard_id<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>data_parallel_rank <span style="color: #008800; font-weight: bold">if</span> shard_batch_itr <span style="color: #008800; font-weight: bold">else</span> <span style="color: #0000DD; font-weight: bold">0</span>,
+            num_workers<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>num_workers,
+            epoch<span style="color: #333333">=</span>epoch,
+            data_buffer_size<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>data_buffer_size,
+            disable_iterator_cache<span style="color: #333333">=</span>disable_iterator_cache,
+        )
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">get_valid_iterator</span>(
+        <span style="color: #007020">self</span>,
+        subset,
+        disable_iterator_cache<span style="color: #333333">=</span><span style="color: #007020">False</span>,
+    ):
+        <span style="color: #DD4422">&quot;&quot;&quot;Return an EpochBatchIterator over given validation subset for a given epoch.&quot;&quot;&quot;</span>
+        <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>task<span style="color: #333333">.</span>get_batch_iterator(
+            dataset<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>task<span style="color: #333333">.</span>dataset(subset),
+            max_tokens<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>max_tokens_valid,
+            max_sentences<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>max_sentences_valid,
+            max_positions<span style="color: #333333">=</span>utils<span style="color: #333333">.</span>resolve_max_positions(
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>task<span style="color: #333333">.</span>max_positions(),
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>model<span style="color: #333333">.</span>max_positions(),
+            ),
+            ignore_invalid_inputs<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>skip_invalid_size_inputs_valid_test,
+            required_batch_size_multiple<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>required_batch_size_multiple,
+            seed<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>seed,
+            num_shards<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>data_parallel_world_size,
+            shard_id<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>data_parallel_rank,
+            num_workers<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>num_workers,
+            data_buffer_size<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>data_buffer_size,
+            disable_iterator_cache<span style="color: #333333">=</span>disable_iterator_cache,
+        )
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">begin_epoch</span>(<span style="color: #007020">self</span>, epoch):
+        <span style="color: #DD4422">&quot;&quot;&quot;Called at the beginning of each epoch.&quot;&quot;&quot;</span>
+        logger<span style="color: #333333">.</span>info(<span style="background-color: #fff0f0">&quot;begin training epoch {}&quot;</span><span style="color: #333333">.</span>format(epoch))
+
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>quantizer <span style="color: #000000; font-weight: bold">is</span> <span style="color: #000000; font-weight: bold">not</span> <span style="color: #007020">None</span>:
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>quantizer<span style="color: #333333">.</span>begin_epoch(epoch)
+
+        <span style="color: #888888"># task specific setup per epoch</span>
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>task<span style="color: #333333">.</span>begin_epoch(epoch, <span style="color: #007020">self</span><span style="color: #333333">.</span>get_model())
+
+        <span style="color: #888888"># reset dummy batch</span>
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>_dummy_batch <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&#39;DUMMY&#39;</span>
+
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>tpu:
+            <span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">torch_xla.core.xla_model</span> <span style="color: #008800; font-weight: bold">as</span> <span style="color: #0e84b5; font-weight: bold">xm</span>
+
+            xm<span style="color: #333333">.</span>rendezvous(<span style="background-color: #fff0f0">&#39;begin_epoch&#39;</span>)  <span style="color: #888888"># wait for all workers</span>
+            xm<span style="color: #333333">.</span>mark_step()
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">begin_valid_epoch</span>(<span style="color: #007020">self</span>, epoch):
+        <span style="color: #DD4422">&quot;&quot;&quot;Called at the beginning of each validation epoch.&quot;&quot;&quot;</span>
+
+        <span style="color: #888888"># task specific setup per validation epoch</span>
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>task<span style="color: #333333">.</span>begin_valid_epoch(epoch, <span style="color: #007020">self</span><span style="color: #333333">.</span>get_model())
+        
+        <span style="color: #888888"># reset dummy batch</span>
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>_dummy_batch <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&#39;DUMMY&#39;</span>
+
+    <span style="color: #555555; font-weight: bold">@metrics.aggregate</span>(<span style="background-color: #fff0f0">&quot;train&quot;</span>)
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">train_step</span>(<span style="color: #007020">self</span>, samples, raise_oom<span style="color: #333333">=</span><span style="color: #007020">False</span>):
+        <span style="color: #DD4422">&quot;&quot;&quot;Do forward, backward and parameter update.&quot;&quot;&quot;</span>
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_dummy_batch <span style="color: #333333">==</span> <span style="background-color: #fff0f0">&quot;DUMMY&quot;</span>:
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>_dummy_batch <span style="color: #333333">=</span> samples[<span style="color: #0000DD; font-weight: bold">0</span>]
+
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>_set_seed()
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>model<span style="color: #333333">.</span>train()
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>criterion<span style="color: #333333">.</span>train()
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>zero_grad()
+
+        metrics<span style="color: #333333">.</span>log_start_time(<span style="background-color: #fff0f0">&quot;train_wall&quot;</span>, priority<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">800</span>, <span style="color: #007020">round</span><span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">0</span>)
+
+        <span style="color: #888888"># forward and backward pass</span>
+        logging_outputs, sample_size, ooms <span style="color: #333333">=</span> [], <span style="color: #0000DD; font-weight: bold">0</span>, <span style="color: #0000DD; font-weight: bold">0</span>
+        <span style="color: #008800; font-weight: bold">for</span> i, sample <span style="color: #000000; font-weight: bold">in</span> <span style="color: #007020">enumerate</span>(samples):
+            sample <span style="color: #333333">=</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_prepare_sample(sample)
+            <span style="color: #008800; font-weight: bold">if</span> sample <span style="color: #000000; font-weight: bold">is</span> <span style="color: #007020">None</span>:
+                <span style="color: #888888"># when sample is None, run forward/backward on a dummy batch</span>
+                <span style="color: #888888"># and ignore the resulting gradients</span>
+                sample <span style="color: #333333">=</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_prepare_sample(<span style="color: #007020">self</span><span style="color: #333333">.</span>_dummy_batch)
+                is_dummy_batch <span style="color: #333333">=</span> <span style="color: #007020">True</span>
+            <span style="color: #008800; font-weight: bold">else</span>:
+                is_dummy_batch <span style="color: #333333">=</span> <span style="color: #007020">False</span>
+
+            <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">maybe_no_sync</span>():
+                <span style="color: #DD4422">&quot;&quot;&quot;</span>
+<span style="color: #DD4422">                Whenever *samples* contains more than one mini-batch, we</span>
+<span style="color: #DD4422">                want to accumulate gradients locally and only call</span>
+<span style="color: #DD4422">                all-reduce in the last backwards pass.</span>
+<span style="color: #DD4422">                &quot;&quot;&quot;</span>
+                <span style="color: #008800; font-weight: bold">if</span> (
+                    <span style="color: #007020">self</span><span style="color: #333333">.</span>data_parallel_world_size <span style="color: #333333">&gt;</span> <span style="color: #0000DD; font-weight: bold">1</span>
+                    <span style="color: #000000; font-weight: bold">and</span> <span style="color: #007020">hasattr</span>(<span style="color: #007020">self</span><span style="color: #333333">.</span>model, <span style="background-color: #fff0f0">&quot;no_sync&quot;</span>)
+                    <span style="color: #000000; font-weight: bold">and</span> i <span style="color: #333333">&lt;</span> <span style="color: #007020">len</span>(samples) <span style="color: #333333">-</span> <span style="color: #0000DD; font-weight: bold">1</span>
+                ):
+                    <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>model<span style="color: #333333">.</span>no_sync()
+                <span style="color: #008800; font-weight: bold">else</span>:
+                    <span style="color: #008800; font-weight: bold">return</span> contextlib<span style="color: #333333">.</span>ExitStack()  <span style="color: #888888"># dummy contextmanager</span>
+
+            <span style="color: #008800; font-weight: bold">try</span>:
+                <span style="color: #008800; font-weight: bold">with</span> maybe_no_sync():
+                    <span style="color: #888888"># forward and backward</span>
+                    loss, sample_size_i, logging_output <span style="color: #333333">=</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>task<span style="color: #333333">.</span>train_step(
+                        sample<span style="color: #333333">=</span>sample,
+                        model<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>model,
+                        criterion<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>criterion,
+                        optimizer<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>optimizer,
+                        update_num<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>get_num_updates(),
+                        ignore_grad<span style="color: #333333">=</span>is_dummy_batch,
+                    )
+                    <span style="color: #008800; font-weight: bold">del</span> loss
+
+                logging_outputs<span style="color: #333333">.</span>append(logging_output)
+                sample_size <span style="color: #333333">+=</span> sample_size_i
+
+                <span style="color: #888888"># emptying the CUDA cache after the first step can</span>
+                <span style="color: #888888"># reduce the chance of OOM</span>
+                <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>cuda <span style="color: #000000; font-weight: bold">and</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>get_num_updates() <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">0</span>:
+                    torch<span style="color: #333333">.</span>cuda<span style="color: #333333">.</span>empty_cache()
+            <span style="color: #008800; font-weight: bold">except</span> <span style="color: #FF0000; font-weight: bold">RuntimeError</span> <span style="color: #008800; font-weight: bold">as</span> e:
+                <span style="color: #008800; font-weight: bold">if</span> <span style="background-color: #fff0f0">&quot;out of memory&quot;</span> <span style="color: #000000; font-weight: bold">in</span> <span style="color: #007020">str</span>(e):
+                    <span style="color: #007020">self</span><span style="color: #333333">.</span>_log_oom(e)
+                    <span style="color: #008800; font-weight: bold">if</span> raise_oom:
+                        <span style="color: #008800; font-weight: bold">raise</span> e
+                    logger<span style="color: #333333">.</span>warning(
+                        <span style="background-color: #fff0f0">&quot;attempting to recover from OOM in forward/backward pass&quot;</span>
+                    )
+                    ooms <span style="color: #333333">+=</span> <span style="color: #0000DD; font-weight: bold">1</span>
+                    <span style="color: #007020">self</span><span style="color: #333333">.</span>zero_grad()
+                    <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>cuda:
+                        torch<span style="color: #333333">.</span>cuda<span style="color: #333333">.</span>empty_cache()
+                    <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>distributed_world_size <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">1</span>:
+                        <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">None</span>
+                <span style="color: #008800; font-weight: bold">else</span>:
+                    <span style="color: #008800; font-weight: bold">raise</span> e
+
+            <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>tpu <span style="color: #000000; font-weight: bold">and</span> i <span style="color: #333333">&lt;</span> <span style="color: #007020">len</span>(samples) <span style="color: #333333">-</span> <span style="color: #0000DD; font-weight: bold">1</span>:
+                <span style="color: #888888"># tpu-comment: every XLA operation before marking step is</span>
+                <span style="color: #888888"># appended to the IR graph, and processing too many batches</span>
+                <span style="color: #888888"># before marking step can lead to OOM errors.</span>
+                <span style="color: #888888"># To handle gradient accumulation use case, we explicitly</span>
+                <span style="color: #888888"># mark step here for every forward pass without a backward pass</span>
+                <span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">torch_xla.core.xla_model</span> <span style="color: #008800; font-weight: bold">as</span> <span style="color: #0e84b5; font-weight: bold">xm</span>
+                xm<span style="color: #333333">.</span>mark_step()
+
+        <span style="color: #008800; font-weight: bold">if</span> is_dummy_batch:
+            <span style="color: #008800; font-weight: bold">if</span> torch<span style="color: #333333">.</span>is_tensor(sample_size):
+                sample_size<span style="color: #333333">.</span>zero_()
+            <span style="color: #008800; font-weight: bold">else</span>:
+                sample_size <span style="color: #333333">*=</span> <span style="color: #6600EE; font-weight: bold">0.</span>
+
+        <span style="color: #008800; font-weight: bold">if</span> torch<span style="color: #333333">.</span>is_tensor(sample_size):
+            sample_size <span style="color: #333333">=</span> sample_size<span style="color: #333333">.</span>float()
+        <span style="color: #008800; font-weight: bold">else</span>:
+            sample_size <span style="color: #333333">=</span> <span style="color: #007020">float</span>(sample_size)
+
+        <span style="color: #888888"># gather logging outputs from all replicas</span>
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_sync_stats():
+            train_time <span style="color: #333333">=</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_local_cumulative_training_time()
+            logging_outputs, (sample_size, ooms, total_train_time) <span style="color: #333333">=</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_aggregate_logging_outputs(
+                logging_outputs, sample_size, ooms, train_time, ignore<span style="color: #333333">=</span>is_dummy_batch,
+            )
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>_cumulative_training_time <span style="color: #333333">=</span> total_train_time <span style="color: #333333">/</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>data_parallel_world_size
+
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">hasattr</span>(<span style="color: #007020">self</span><span style="color: #333333">.</span>model, <span style="background-color: #fff0f0">&#39;all_reduce&#39;</span>):
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>model<span style="color: #333333">.</span>all_reduce()
+
+        overflow <span style="color: #333333">=</span> <span style="color: #007020">False</span>
+        <span style="color: #008800; font-weight: bold">try</span>:
+            <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>tpu <span style="color: #000000; font-weight: bold">and</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>data_parallel_world_size <span style="color: #333333">&gt;</span> <span style="color: #0000DD; font-weight: bold">1</span>:
+                <span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">torch_xla.core.xla_model</span> <span style="color: #008800; font-weight: bold">as</span> <span style="color: #0e84b5; font-weight: bold">xm</span>
+                gradients <span style="color: #333333">=</span> xm<span style="color: #333333">.</span>_fetch_gradients(<span style="color: #007020">self</span><span style="color: #333333">.</span>optimizer<span style="color: #333333">.</span>optimizer)
+                xm<span style="color: #333333">.</span>all_reduce(<span style="background-color: #fff0f0">&#39;sum&#39;</span>, gradients, scale<span style="color: #333333">=</span><span style="color: #6600EE; font-weight: bold">1.0</span> <span style="color: #333333">/</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>data_parallel_world_size)
+
+            <span style="color: #008800; font-weight: bold">with</span> torch<span style="color: #333333">.</span>autograd<span style="color: #333333">.</span>profiler<span style="color: #333333">.</span>record_function(<span style="background-color: #fff0f0">&quot;multiply-grads&quot;</span>):
+                <span style="color: #888888"># multiply gradients by (# GPUs / sample_size) since DDP</span>
+                <span style="color: #888888"># already normalizes by the number of GPUs. Thus we get</span>
+                <span style="color: #888888"># (sum_of_gradients / sample_size).</span>
+                <span style="color: #008800; font-weight: bold">if</span> <span style="color: #000000; font-weight: bold">not</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>use_bmuf:
+                    <span style="color: #007020">self</span><span style="color: #333333">.</span>optimizer<span style="color: #333333">.</span>multiply_grads(<span style="color: #007020">self</span><span style="color: #333333">.</span>data_parallel_world_size <span style="color: #333333">/</span> sample_size)
+                <span style="color: #008800; font-weight: bold">elif</span> sample_size <span style="color: #333333">&gt;</span> <span style="color: #0000DD; font-weight: bold">0</span>:  <span style="color: #888888"># BMUF needs to check sample size</span>
+                    num <span style="color: #333333">=</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>data_parallel_world_size <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_sync_stats() <span style="color: #008800; font-weight: bold">else</span> <span style="color: #0000DD; font-weight: bold">1</span>
+                    <span style="color: #007020">self</span><span style="color: #333333">.</span>optimizer<span style="color: #333333">.</span>multiply_grads(num <span style="color: #333333">/</span> sample_size)
+
+            <span style="color: #008800; font-weight: bold">with</span> torch<span style="color: #333333">.</span>autograd<span style="color: #333333">.</span>profiler<span style="color: #333333">.</span>record_function(<span style="background-color: #fff0f0">&quot;clip-grads&quot;</span>):
+                <span style="color: #888888"># clip grads</span>
+                grad_norm <span style="color: #333333">=</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>clip_grad_norm(<span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>clip_norm)
+
+            <span style="color: #888888"># check that grad norms are consistent across workers</span>
+            <span style="color: #008800; font-weight: bold">if</span> (
+                <span style="color: #000000; font-weight: bold">not</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>use_bmuf
+                <span style="color: #000000; font-weight: bold">and</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>distributed_wrapper <span style="color: #333333">!=</span> <span style="background-color: #fff0f0">&#39;SlowMo&#39;</span>
+                <span style="color: #000000; font-weight: bold">and</span> <span style="color: #000000; font-weight: bold">not</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>tpu
+            ):
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>_check_grad_norms(grad_norm)
+
+            <span style="color: #008800; font-weight: bold">with</span> torch<span style="color: #333333">.</span>autograd<span style="color: #333333">.</span>profiler<span style="color: #333333">.</span>record_function(<span style="background-color: #fff0f0">&quot;optimizer&quot;</span>):
+                <span style="color: #888888"># take an optimization step</span>
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>optimizer<span style="color: #333333">.</span>step()<div style="background: #00800030;"><span style="color: #008800; font-weight: bold">                print</span>(<span style="background-color: #fff0f0">&quot;LOG STMT: Model Parameters = </span><span style="background-color: #eeeeee">%s</span><span style="background-color: #fff0f0">&quot;</span> <span style="color: #333333">%</span> (<span style="color: #007020">str</span>(<span style="color: #007020">self</span><span style="color: #333333">.</span>model<span style="color: #333333">.</span>parameters)))</div>
+        <span style="color: #008800; font-weight: bold">except</span> <span style="color: #FF0000; font-weight: bold">FloatingPointError</span>:
+            <span style="color: #888888"># re-run the forward and backward pass with hooks attached to print</span>
+            <span style="color: #888888"># out where it fails</span>
+            <span style="color: #008800; font-weight: bold">with</span> NanDetector(<span style="color: #007020">self</span><span style="color: #333333">.</span>model):
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>task<span style="color: #333333">.</span>train_step(
+                    sample, <span style="color: #007020">self</span><span style="color: #333333">.</span>model, <span style="color: #007020">self</span><span style="color: #333333">.</span>criterion, <span style="color: #007020">self</span><span style="color: #333333">.</span>optimizer, <span style="color: #007020">self</span><span style="color: #333333">.</span>get_num_updates(),
+                    ignore_grad<span style="color: #333333">=</span><span style="color: #007020">False</span>
+                )
+            <span style="color: #008800; font-weight: bold">raise</span>
+        <span style="color: #008800; font-weight: bold">except</span> <span style="color: #FF0000; font-weight: bold">OverflowError</span> <span style="color: #008800; font-weight: bold">as</span> e:
+            overflow <span style="color: #333333">=</span> <span style="color: #007020">True</span>
+            logger<span style="color: #333333">.</span>info(<span style="background-color: #fff0f0">&quot;NOTE: overflow detected, &quot;</span> <span style="color: #333333">+</span> <span style="color: #007020">str</span>(e))
+            grad_norm <span style="color: #333333">=</span> torch<span style="color: #333333">.</span>tensor(<span style="color: #6600EE; font-weight: bold">0.</span>)<span style="color: #333333">.</span>cuda()
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>zero_grad()
+        <span style="color: #008800; font-weight: bold">except</span> <span style="color: #FF0000; font-weight: bold">RuntimeError</span> <span style="color: #008800; font-weight: bold">as</span> e:
+            <span style="color: #008800; font-weight: bold">if</span> <span style="background-color: #fff0f0">&quot;out of memory&quot;</span> <span style="color: #000000; font-weight: bold">in</span> <span style="color: #007020">str</span>(e):
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>_log_oom(e)
+                logger<span style="color: #333333">.</span>error(<span style="background-color: #fff0f0">&quot;OOM during optimization, irrecoverable&quot;</span>)
+            <span style="color: #008800; font-weight: bold">raise</span> e
+
+        <span style="color: #888888"># Some distributed wrappers (e.g., SlowMo) need access to the optimizer after the step</span>
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">hasattr</span>(<span style="color: #007020">self</span><span style="color: #333333">.</span>model, <span style="background-color: #fff0f0">&#39;perform_additional_optimizer_actions&#39;</span>):
+            <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">hasattr</span>(<span style="color: #007020">self</span><span style="color: #333333">.</span>optimizer, <span style="background-color: #fff0f0">&#39;fp32_params&#39;</span>):
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>model<span style="color: #333333">.</span>perform_additional_optimizer_actions(<span style="color: #007020">self</span><span style="color: #333333">.</span>optimizer<span style="color: #333333">.</span>optimizer, <span style="color: #007020">self</span><span style="color: #333333">.</span>optimizer<span style="color: #333333">.</span>fp32_params)
+            <span style="color: #008800; font-weight: bold">else</span>:
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>model<span style="color: #333333">.</span>perform_additional_optimizer_actions(<span style="color: #007020">self</span><span style="color: #333333">.</span>optimizer<span style="color: #333333">.</span>optimizer)
+
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #000000; font-weight: bold">not</span> overflow <span style="color: #000000; font-weight: bold">or</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>distributed_wrapper <span style="color: #333333">==</span> <span style="background-color: #fff0f0">&#39;SlowMo&#39;</span>:
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>set_num_updates(<span style="color: #007020">self</span><span style="color: #333333">.</span>get_num_updates() <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">1</span>)
+
+            <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>tpu:
+                <span style="color: #888888"># mark step on TPUs</span>
+                <span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">torch_xla.core.xla_model</span> <span style="color: #008800; font-weight: bold">as</span> <span style="color: #0e84b5; font-weight: bold">xm</span>
+                xm<span style="color: #333333">.</span>mark_step()
+
+                <span style="color: #888888"># only log stats every log_interval steps</span>
+                <span style="color: #888888"># this causes wps to be misreported when log_interval &gt; 1</span>
+                logging_output <span style="color: #333333">=</span> {}
+                <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>get_num_updates() <span style="color: #333333">%</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>log_interval <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">0</span>:
+                    logging_output <span style="color: #333333">=</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_reduce_and_log_stats(
+                        logging_outputs, sample_size, grad_norm,
+                    )
+
+                <span style="color: #888888"># log whenever there&#39;s an XLA compilation, since these</span>
+                <span style="color: #888888"># slow down training and may indicate opportunities for</span>
+                <span style="color: #888888"># optimization</span>
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>_check_xla_compilation()
+            <span style="color: #008800; font-weight: bold">else</span>:
+                <span style="color: #888888"># log stats</span>
+                logging_output <span style="color: #333333">=</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_reduce_and_log_stats(
+                    logging_outputs, sample_size, grad_norm,
+                )
+
+                <span style="color: #888888"># clear CUDA cache to reduce memory fragmentation</span>
+                <span style="color: #008800; font-weight: bold">if</span> (
+                    <span style="color: #007020">self</span><span style="color: #333333">.</span>cuda
+                    <span style="color: #000000; font-weight: bold">and</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>empty_cache_freq <span style="color: #333333">&gt;</span> <span style="color: #0000DD; font-weight: bold">0</span>
+                    <span style="color: #000000; font-weight: bold">and</span> (
+                        (<span style="color: #007020">self</span><span style="color: #333333">.</span>get_num_updates() <span style="color: #333333">+</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>empty_cache_freq <span style="color: #333333">-</span> <span style="color: #0000DD; font-weight: bold">1</span>)
+                        <span style="color: #333333">%</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>empty_cache_freq
+                    ) <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">0</span>
+                ):
+                    torch<span style="color: #333333">.</span>cuda<span style="color: #333333">.</span>empty_cache()
+
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>fp16:
+            metrics<span style="color: #333333">.</span>log_scalar(
+                <span style="background-color: #fff0f0">&quot;loss_scale&quot;</span>,
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>optimizer<span style="color: #333333">.</span>scaler<span style="color: #333333">.</span>loss_scale,
+                priority<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">700</span>,
+                <span style="color: #007020">round</span><span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">4</span>,
+                weight<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">0</span>,
+            )
+
+        metrics<span style="color: #333333">.</span>log_stop_time(<span style="background-color: #fff0f0">&quot;train_wall&quot;</span>)
+        <span style="color: #008800; font-weight: bold">return</span> logging_output
+
+    <span style="color: #555555; font-weight: bold">@metrics.aggregate</span>(<span style="background-color: #fff0f0">&quot;valid&quot;</span>)
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">valid_step</span>(<span style="color: #007020">self</span>, sample, raise_oom<span style="color: #333333">=</span><span style="color: #007020">False</span>):
+        <span style="color: #DD4422">&quot;&quot;&quot;Do forward pass in evaluation mode.&quot;&quot;&quot;</span>
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_dummy_batch <span style="color: #333333">==</span> <span style="background-color: #fff0f0">&quot;DUMMY&quot;</span>:
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>_dummy_batch <span style="color: #333333">=</span> sample
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>tpu:
+            <span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">torch_xla.core.xla_model</span> <span style="color: #008800; font-weight: bold">as</span> <span style="color: #0e84b5; font-weight: bold">xm</span>
+            xm<span style="color: #333333">.</span>rendezvous(<span style="background-color: #fff0f0">&#39;valid_step&#39;</span>)  <span style="color: #888888"># wait for all workers</span>
+            xm<span style="color: #333333">.</span>mark_step()
+
+        <span style="color: #008800; font-weight: bold">with</span> torch<span style="color: #333333">.</span>no_grad():
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>model<span style="color: #333333">.</span>eval()
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>criterion<span style="color: #333333">.</span>eval()
+
+            sample <span style="color: #333333">=</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_prepare_sample(sample)
+            <span style="color: #008800; font-weight: bold">if</span> sample <span style="color: #000000; font-weight: bold">is</span> <span style="color: #007020">None</span>:
+                sample <span style="color: #333333">=</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_prepare_sample(<span style="color: #007020">self</span><span style="color: #333333">.</span>_dummy_batch)
+                is_dummy_batch <span style="color: #333333">=</span> <span style="color: #007020">True</span>
+            <span style="color: #008800; font-weight: bold">else</span>:
+                is_dummy_batch <span style="color: #333333">=</span> <span style="color: #007020">False</span>
+
+            <span style="color: #008800; font-weight: bold">try</span>:
+                _loss, sample_size, logging_output <span style="color: #333333">=</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>task<span style="color: #333333">.</span>valid_step(
+                    sample, <span style="color: #007020">self</span><span style="color: #333333">.</span>model, <span style="color: #007020">self</span><span style="color: #333333">.</span>criterion
+                )
+            <span style="color: #008800; font-weight: bold">except</span> <span style="color: #FF0000; font-weight: bold">RuntimeError</span> <span style="color: #008800; font-weight: bold">as</span> e:
+                <span style="color: #008800; font-weight: bold">if</span> <span style="background-color: #fff0f0">&quot;out of memory&quot;</span> <span style="color: #000000; font-weight: bold">in</span> <span style="color: #007020">str</span>(e):
+                    <span style="color: #007020">self</span><span style="color: #333333">.</span>_log_oom(e)
+                    <span style="color: #008800; font-weight: bold">if</span> <span style="color: #000000; font-weight: bold">not</span> raise_oom:
+                        logger<span style="color: #333333">.</span>warning(
+                            <span style="background-color: #fff0f0">&quot;ran out of memory in validation step, retrying batch&quot;</span>
+                        )
+                        <span style="color: #008800; font-weight: bold">for</span> p <span style="color: #000000; font-weight: bold">in</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>model<span style="color: #333333">.</span>parameters():
+                            <span style="color: #008800; font-weight: bold">if</span> p<span style="color: #333333">.</span>grad <span style="color: #000000; font-weight: bold">is</span> <span style="color: #000000; font-weight: bold">not</span> <span style="color: #007020">None</span>:
+                                p<span style="color: #333333">.</span>grad <span style="color: #333333">=</span> <span style="color: #007020">None</span>  <span style="color: #888888"># free some memory</span>
+                        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>cuda:
+                            torch<span style="color: #333333">.</span>cuda<span style="color: #333333">.</span>empty_cache()
+                        <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>valid_step(sample, raise_oom<span style="color: #333333">=</span><span style="color: #007020">True</span>)
+                <span style="color: #008800; font-weight: bold">raise</span> e
+
+            logging_outputs <span style="color: #333333">=</span> [logging_output]
+            <span style="color: #008800; font-weight: bold">if</span> is_dummy_batch:
+                <span style="color: #008800; font-weight: bold">if</span> torch<span style="color: #333333">.</span>is_tensor(sample_size):
+                    sample_size<span style="color: #333333">.</span>zero_()
+                <span style="color: #008800; font-weight: bold">else</span>:
+                    sample_size <span style="color: #333333">*=</span> <span style="color: #6600EE; font-weight: bold">0.</span>
+
+        <span style="color: #888888"># gather logging outputs from all replicas</span>
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>data_parallel_world_size <span style="color: #333333">&gt;</span> <span style="color: #0000DD; font-weight: bold">1</span>:
+            logging_outputs, (sample_size, ) <span style="color: #333333">=</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_aggregate_logging_outputs(
+                logging_outputs, sample_size, ignore<span style="color: #333333">=</span>is_dummy_batch,
+            )
+
+        <span style="color: #888888"># log validation stats</span>
+        logging_output <span style="color: #333333">=</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_reduce_and_log_stats(logging_outputs, sample_size)
+
+        <span style="color: #008800; font-weight: bold">return</span> logging_output
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">zero_grad</span>(<span style="color: #007020">self</span>):
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>optimizer<span style="color: #333333">.</span>zero_grad()
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">lr_step</span>(<span style="color: #007020">self</span>, epoch, val_loss<span style="color: #333333">=</span><span style="color: #007020">None</span>):
+        <span style="color: #DD4422">&quot;&quot;&quot;Adjust the learning rate at the end of the epoch.&quot;&quot;&quot;</span>
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>lr_scheduler<span style="color: #333333">.</span>step(epoch, val_loss)
+        <span style="color: #888888"># prefer updating the LR based on the number of steps</span>
+        <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>lr_step_update()
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">lr_step_update</span>(<span style="color: #007020">self</span>):
+        <span style="color: #DD4422">&quot;&quot;&quot;Update the learning rate after each update.&quot;&quot;&quot;</span>
+        new_lr <span style="color: #333333">=</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>lr_scheduler<span style="color: #333333">.</span>step_update(<span style="color: #007020">self</span><span style="color: #333333">.</span>get_num_updates())
+        metrics<span style="color: #333333">.</span>log_scalar(<span style="background-color: #fff0f0">&quot;lr&quot;</span>, new_lr, weight<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">0</span>, priority<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">300</span>)
+        <span style="color: #008800; font-weight: bold">return</span> new_lr
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">get_lr</span>(<span style="color: #007020">self</span>):
+        <span style="color: #DD4422">&quot;&quot;&quot;Get the current learning rate.&quot;&quot;&quot;</span>
+        <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>optimizer<span style="color: #333333">.</span>get_lr()
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">get_model</span>(<span style="color: #007020">self</span>):
+        <span style="color: #DD4422">&quot;&quot;&quot;Get the (non-wrapped) model instance.&quot;&quot;&quot;</span>
+        <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_model
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">get_criterion</span>(<span style="color: #007020">self</span>):
+        <span style="color: #DD4422">&quot;&quot;&quot;Get the (non-wrapped) criterion instance.&quot;&quot;&quot;</span>
+        <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_criterion
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">get_meter</span>(<span style="color: #007020">self</span>, name):
+        <span style="color: #DD4422">&quot;&quot;&quot;[deprecated] Get a specific meter by name.&quot;&quot;&quot;</span>
+        <span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">fairseq</span> <span style="color: #008800; font-weight: bold">import</span> meters
+
+        <span style="color: #008800; font-weight: bold">if</span> <span style="background-color: #fff0f0">&#39;get_meter&#39;</span> <span style="color: #000000; font-weight: bold">not</span> <span style="color: #000000; font-weight: bold">in</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_warn_once:
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>_warn_once<span style="color: #333333">.</span>add(<span style="background-color: #fff0f0">&#39;get_meter&#39;</span>)
+            utils<span style="color: #333333">.</span>deprecation_warning(
+                <span style="background-color: #fff0f0">&#39;Trainer.get_meter is deprecated. Please use fairseq.metrics instead.&#39;</span>
+            )
+
+        train_meters <span style="color: #333333">=</span> metrics<span style="color: #333333">.</span>get_meters(<span style="background-color: #fff0f0">&quot;train&quot;</span>)
+        <span style="color: #008800; font-weight: bold">if</span> train_meters <span style="color: #000000; font-weight: bold">is</span> <span style="color: #007020">None</span>:
+            train_meters <span style="color: #333333">=</span> {}
+
+        <span style="color: #008800; font-weight: bold">if</span> name <span style="color: #333333">==</span> <span style="background-color: #fff0f0">&quot;train_loss&quot;</span> <span style="color: #000000; font-weight: bold">and</span> <span style="background-color: #fff0f0">&quot;loss&quot;</span> <span style="color: #000000; font-weight: bold">in</span> train_meters:
+            <span style="color: #008800; font-weight: bold">return</span> train_meters[<span style="background-color: #fff0f0">&quot;loss&quot;</span>]
+        <span style="color: #008800; font-weight: bold">elif</span> name <span style="color: #333333">==</span> <span style="background-color: #fff0f0">&quot;train_nll_loss&quot;</span>:
+            <span style="color: #888888"># support for legacy train.py, which assumed this meter is</span>
+            <span style="color: #888888"># always initialized</span>
+            m <span style="color: #333333">=</span> train_meters<span style="color: #333333">.</span>get(<span style="background-color: #fff0f0">&quot;nll_loss&quot;</span>, <span style="color: #007020">None</span>)
+            <span style="color: #008800; font-weight: bold">return</span> m <span style="color: #000000; font-weight: bold">or</span> meters<span style="color: #333333">.</span>AverageMeter()
+        <span style="color: #008800; font-weight: bold">elif</span> name <span style="color: #333333">==</span> <span style="background-color: #fff0f0">&quot;wall&quot;</span>:
+            <span style="color: #888888"># support for legacy train.py, which assumed this meter is</span>
+            <span style="color: #888888"># always initialized</span>
+            m <span style="color: #333333">=</span> metrics<span style="color: #333333">.</span>get_meter(<span style="background-color: #fff0f0">&quot;default&quot;</span>, <span style="background-color: #fff0f0">&quot;wall&quot;</span>)
+            <span style="color: #008800; font-weight: bold">return</span> m <span style="color: #000000; font-weight: bold">or</span> meters<span style="color: #333333">.</span>TimeMeter()
+        <span style="color: #008800; font-weight: bold">elif</span> name <span style="color: #333333">==</span> <span style="background-color: #fff0f0">&quot;wps&quot;</span>:
+            m <span style="color: #333333">=</span> metrics<span style="color: #333333">.</span>get_meter(<span style="background-color: #fff0f0">&quot;train&quot;</span>, <span style="background-color: #fff0f0">&quot;wps&quot;</span>)
+            <span style="color: #008800; font-weight: bold">return</span> m <span style="color: #000000; font-weight: bold">or</span> meters<span style="color: #333333">.</span>TimeMeter()
+        <span style="color: #008800; font-weight: bold">elif</span> name <span style="color: #000000; font-weight: bold">in</span> {<span style="background-color: #fff0f0">&quot;valid_loss&quot;</span>, <span style="background-color: #fff0f0">&quot;valid_nll_loss&quot;</span>}:
+            <span style="color: #888888"># support for legacy train.py, which assumed these meters</span>
+            <span style="color: #888888"># are always initialized</span>
+            k <span style="color: #333333">=</span> name[<span style="color: #007020">len</span>(<span style="background-color: #fff0f0">&quot;valid_&quot;</span>):]
+            m <span style="color: #333333">=</span> metrics<span style="color: #333333">.</span>get_meter(<span style="background-color: #fff0f0">&quot;valid&quot;</span>, k)
+            <span style="color: #008800; font-weight: bold">return</span> m <span style="color: #000000; font-weight: bold">or</span> meters<span style="color: #333333">.</span>AverageMeter()
+        <span style="color: #008800; font-weight: bold">elif</span> name <span style="color: #333333">==</span> <span style="background-color: #fff0f0">&quot;oom&quot;</span>:
+            <span style="color: #008800; font-weight: bold">return</span> meters<span style="color: #333333">.</span>AverageMeter()
+        <span style="color: #008800; font-weight: bold">elif</span> name <span style="color: #000000; font-weight: bold">in</span> train_meters:
+            <span style="color: #008800; font-weight: bold">return</span> train_meters[name]
+        <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">None</span>
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">get_num_updates</span>(<span style="color: #007020">self</span>):
+        <span style="color: #DD4422">&quot;&quot;&quot;Get the number of parameters updates.&quot;&quot;&quot;</span>
+        <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_num_updates
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">set_num_updates</span>(<span style="color: #007020">self</span>, num_updates):
+        <span style="color: #DD4422">&quot;&quot;&quot;Set the number of parameters updates.&quot;&quot;&quot;</span>
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>_num_updates <span style="color: #333333">=</span> num_updates
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>lr_step_update()
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>quantizer:
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>quantizer<span style="color: #333333">.</span>step_update(<span style="color: #007020">self</span><span style="color: #333333">.</span>_num_updates)
+        metrics<span style="color: #333333">.</span>log_scalar(<span style="background-color: #fff0f0">&quot;num_updates&quot;</span>, <span style="color: #007020">self</span><span style="color: #333333">.</span>_num_updates, weight<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">0</span>, priority<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">200</span>)
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">clip_grad_norm</span>(<span style="color: #007020">self</span>, clip_norm):
+        <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>optimizer<span style="color: #333333">.</span>clip_grad_norm(clip_norm, aggregate_norm_fn<span style="color: #333333">=</span><span style="color: #007020">None</span>)
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">cumulative_training_time</span>(<span style="color: #007020">self</span>):
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_cumulative_training_time <span style="color: #000000; font-weight: bold">is</span> <span style="color: #007020">None</span>:
+            <span style="color: #888888"># single GPU</span>
+            <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_local_cumulative_training_time()
+        <span style="color: #008800; font-weight: bold">else</span>:
+            <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_cumulative_training_time
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">_local_cumulative_training_time</span>(<span style="color: #007020">self</span>):
+        <span style="color: #DD4422">&quot;&quot;&quot;Aggregate training time in seconds.&quot;&quot;&quot;</span>
+        <span style="color: #008800; font-weight: bold">return</span> time<span style="color: #333333">.</span>time() <span style="color: #333333">-</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_start_time <span style="color: #333333">+</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_previous_training_time
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">_prepare_sample</span>(<span style="color: #007020">self</span>, sample):
+        <span style="color: #008800; font-weight: bold">if</span> sample <span style="color: #333333">==</span> <span style="background-color: #fff0f0">&quot;DUMMY&quot;</span>:
+            <span style="color: #008800; font-weight: bold">raise</span> <span style="color: #FF0000; font-weight: bold">Exception</span>(
+                <span style="background-color: #fff0f0">&quot;Trying to use an uninitialized &#39;dummy&#39; batch. This usually indicates &quot;</span>
+                <span style="background-color: #fff0f0">&quot;that the total number of batches is smaller than the number of &quot;</span>
+                <span style="background-color: #fff0f0">&quot;participating GPUs. Try reducing the batch size or using fewer GPUs.&quot;</span>
+            )
+
+        <span style="color: #008800; font-weight: bold">if</span> sample <span style="color: #000000; font-weight: bold">is</span> <span style="color: #007020">None</span> <span style="color: #000000; font-weight: bold">or</span> <span style="color: #007020">len</span>(sample) <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">0</span>:
+            <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">None</span>
+
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>cuda:
+            <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>pipeline_model_parallel:
+                <span style="color: #008800; font-weight: bold">if</span> <span style="background-color: #fff0f0">&#39;target&#39;</span> <span style="color: #000000; font-weight: bold">in</span> sample:
+                    sample[<span style="background-color: #fff0f0">&#39;target&#39;</span>] <span style="color: #333333">=</span> utils<span style="color: #333333">.</span>move_to_cuda(sample[<span style="background-color: #fff0f0">&#39;target&#39;</span>], device<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>last_device)
+            <span style="color: #008800; font-weight: bold">else</span>:
+                sample <span style="color: #333333">=</span> utils<span style="color: #333333">.</span>move_to_cuda(sample)
+
+        <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">apply_half</span>(t):
+            <span style="color: #008800; font-weight: bold">if</span> t<span style="color: #333333">.</span>dtype <span style="color: #000000; font-weight: bold">is</span> torch<span style="color: #333333">.</span>float32:
+                <span style="color: #008800; font-weight: bold">return</span> t<span style="color: #333333">.</span>half()
+            <span style="color: #008800; font-weight: bold">return</span> t
+
+        <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">apply_bfloat16</span>(t):
+            <span style="color: #008800; font-weight: bold">if</span> t<span style="color: #333333">.</span>dtype <span style="color: #000000; font-weight: bold">is</span> torch<span style="color: #333333">.</span>float32:
+                <span style="color: #008800; font-weight: bold">return</span> t<span style="color: #333333">.</span>to(dtype<span style="color: #333333">=</span>torch<span style="color: #333333">.</span>bfloat16)
+            <span style="color: #008800; font-weight: bold">return</span> t
+
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>fp16:
+            sample <span style="color: #333333">=</span> utils<span style="color: #333333">.</span>apply_to_sample(apply_half, sample)
+
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>bf16:
+            sample <span style="color: #333333">=</span> utils<span style="color: #333333">.</span>apply_to_sample(apply_bfloat16, sample)
+
+        <span style="color: #008800; font-weight: bold">return</span> sample
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">_set_seed</span>(<span style="color: #007020">self</span>):
+        <span style="color: #888888"># Set seed based on args.seed and the update number so that we get</span>
+        <span style="color: #888888"># reproducible results when resuming from checkpoints</span>
+        seed <span style="color: #333333">=</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>seed <span style="color: #333333">+</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>get_num_updates()
+        utils<span style="color: #333333">.</span>set_torch_seed(seed)
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">_sync_stats</span>(<span style="color: #007020">self</span>):
+        <span style="color: #888888"># Return True if it&#39;s using multiple GPUs and DDP or multiple GPUs with</span>
+        <span style="color: #888888"># BMUF and it&#39;s a bmuf sync with warmup iterations completed before.</span>
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>data_parallel_world_size <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">1</span>:
+            <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">False</span>
+        <span style="color: #008800; font-weight: bold">elif</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>use_bmuf:
+            <span style="color: #008800; font-weight: bold">return</span> (
+                (<span style="color: #007020">self</span><span style="color: #333333">.</span>get_num_updates() <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">1</span>) <span style="color: #333333">%</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>global_sync_iter <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">0</span>
+                <span style="color: #000000; font-weight: bold">and</span> (<span style="color: #007020">self</span><span style="color: #333333">.</span>get_num_updates() <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">1</span>) <span style="color: #333333">&gt;</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>warmup_iterations
+            )
+        <span style="color: #008800; font-weight: bold">else</span>:
+            <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">True</span>
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">_log_oom</span>(<span style="color: #007020">self</span>, exc):
+        msg <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;OOM: Ran out of memory with exception: {}&quot;</span><span style="color: #333333">.</span>format(exc)
+        logger<span style="color: #333333">.</span>warning(msg)
+        <span style="color: #008800; font-weight: bold">if</span> torch<span style="color: #333333">.</span>cuda<span style="color: #333333">.</span>is_available() <span style="color: #000000; font-weight: bold">and</span> <span style="color: #007020">hasattr</span>(torch<span style="color: #333333">.</span>cuda, <span style="background-color: #fff0f0">&quot;memory_summary&quot;</span>):
+            <span style="color: #008800; font-weight: bold">for</span> device_idx <span style="color: #000000; font-weight: bold">in</span> <span style="color: #007020">range</span>(torch<span style="color: #333333">.</span>cuda<span style="color: #333333">.</span>device_count()):
+                logger<span style="color: #333333">.</span>warning(torch<span style="color: #333333">.</span>cuda<span style="color: #333333">.</span>memory_summary(device<span style="color: #333333">=</span>device_idx))
+        sys<span style="color: #333333">.</span>stderr<span style="color: #333333">.</span>flush()
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">_aggregate_logging_outputs</span>(
+        <span style="color: #007020">self</span>,
+        logging_outputs: List[Dict[<span style="color: #007020">str</span>, Any]],
+        <span style="color: #333333">*</span>extra_stats_to_sum,
+        ignore<span style="color: #333333">=</span><span style="color: #007020">False</span>,
+    ):
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>task<span style="color: #333333">.</span>__class__<span style="color: #333333">.</span>logging_outputs_can_be_summed(<span style="color: #007020">self</span><span style="color: #333333">.</span>get_criterion()):
+            <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_fast_stat_sync_sum(
+                logging_outputs, <span style="color: #333333">*</span>extra_stats_to_sum, ignore<span style="color: #333333">=</span>ignore
+            )
+        <span style="color: #008800; font-weight: bold">else</span>:
+            <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_all_gather_list_sync(
+                logging_outputs, <span style="color: #333333">*</span>extra_stats_to_sum, ignore<span style="color: #333333">=</span>ignore
+            )
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">_all_gather_list_sync</span>(
+        <span style="color: #007020">self</span>,
+        logging_outputs: List[Dict[<span style="color: #007020">str</span>, Any]],
+        <span style="color: #333333">*</span>extra_stats_to_sum,
+        ignore<span style="color: #333333">=</span><span style="color: #007020">False</span>,
+    ):
+        <span style="color: #DD4422">&quot;&quot;&quot;</span>
+<span style="color: #DD4422">        Sync logging outputs across workers. all_gather_list_sync is</span>
+<span style="color: #DD4422">        suitable when logging outputs are complex types.</span>
+<span style="color: #DD4422">        &quot;&quot;&quot;</span>
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>tpu:
+            <span style="color: #008800; font-weight: bold">raise</span> <span style="color: #FF0000; font-weight: bold">NotImplementedError</span>
+        <span style="color: #008800; font-weight: bold">if</span> ignore:
+            logging_outputs <span style="color: #333333">=</span> []
+        results <span style="color: #333333">=</span> <span style="color: #007020">list</span>(<span style="color: #007020">zip</span>(
+            <span style="color: #333333">*</span>distributed_utils<span style="color: #333333">.</span>all_gather_list(
+                [logging_outputs] <span style="color: #333333">+</span> <span style="color: #007020">list</span>(extra_stats_to_sum),
+                max_size<span style="color: #333333">=</span><span style="color: #007020">getattr</span>(<span style="color: #007020">self</span><span style="color: #333333">.</span>args, <span style="background-color: #fff0f0">&#39;all_gather_list_size&#39;</span>, <span style="color: #0000DD; font-weight: bold">16384</span>),
+                group<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>data_parallel_process_group,
+            )
+        ))
+        logging_outputs, extra_stats_to_sum <span style="color: #333333">=</span> results[<span style="color: #0000DD; font-weight: bold">0</span>], results[<span style="color: #0000DD; font-weight: bold">1</span>:]
+        logging_outputs <span style="color: #333333">=</span> <span style="color: #007020">list</span>(chain<span style="color: #333333">.</span>from_iterable(logging_outputs))
+        extra_stats_to_sum <span style="color: #333333">=</span> [<span style="color: #007020">sum</span>(s) <span style="color: #008800; font-weight: bold">for</span> s <span style="color: #000000; font-weight: bold">in</span> extra_stats_to_sum]
+        <span style="color: #008800; font-weight: bold">return</span> logging_outputs, extra_stats_to_sum
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">_fast_stat_sync_sum</span>(
+        <span style="color: #007020">self</span>,
+        logging_outputs: List[Dict[<span style="color: #007020">str</span>, Any]],
+        <span style="color: #333333">*</span>extra_stats_to_sum,
+        ignore<span style="color: #333333">=</span><span style="color: #007020">False</span>,
+    ):
+        <span style="color: #DD4422">&quot;&quot;&quot;</span>
+<span style="color: #DD4422">        Sync logging outputs across workers. fast_stat_sync_sum is</span>
+<span style="color: #DD4422">        faster than all_gather_list_sync, but is only suitable when</span>
+<span style="color: #DD4422">        logging outputs are scalars and can be summed. Note that</span>
+<span style="color: #DD4422">        *logging_outputs* cannot contain any nested dicts/lists.</span>
+<span style="color: #DD4422">        &quot;&quot;&quot;</span>
+        data <span style="color: #333333">=</span> {}
+        <span style="color: #008800; font-weight: bold">for</span> i, stat <span style="color: #000000; font-weight: bold">in</span> <span style="color: #007020">enumerate</span>(extra_stats_to_sum):
+            data[<span style="background-color: #fff0f0">&#39;extra_stats_&#39;</span> <span style="color: #333333">+</span> <span style="color: #007020">str</span>(i)] <span style="color: #333333">=</span> stat
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">len</span>(logging_outputs) <span style="color: #333333">&gt;</span> <span style="color: #0000DD; font-weight: bold">0</span>:
+            log_keys <span style="color: #333333">=</span> <span style="color: #007020">list</span>(logging_outputs[<span style="color: #0000DD; font-weight: bold">0</span>]<span style="color: #333333">.</span>keys())
+            <span style="color: #008800; font-weight: bold">for</span> k <span style="color: #000000; font-weight: bold">in</span> log_keys:
+                <span style="color: #008800; font-weight: bold">if</span> <span style="color: #000000; font-weight: bold">not</span> ignore:
+                    v <span style="color: #333333">=</span> <span style="color: #007020">sum</span>(log[k] <span style="color: #008800; font-weight: bold">for</span> log <span style="color: #000000; font-weight: bold">in</span> logging_outputs <span style="color: #008800; font-weight: bold">if</span> k <span style="color: #000000; font-weight: bold">in</span> log)
+                <span style="color: #008800; font-weight: bold">else</span>:
+                    v <span style="color: #333333">=</span> logging_outputs[<span style="color: #0000DD; font-weight: bold">0</span>][k]
+                    v <span style="color: #333333">=</span> torch<span style="color: #333333">.</span>zeros_like(v) <span style="color: #008800; font-weight: bold">if</span> torch<span style="color: #333333">.</span>is_tensor(v) <span style="color: #008800; font-weight: bold">else</span> <span style="color: #0000DD; font-weight: bold">0</span>
+                data[<span style="background-color: #fff0f0">&#39;logging_outputs_&#39;</span> <span style="color: #333333">+</span> k] <span style="color: #333333">=</span> v
+        <span style="color: #008800; font-weight: bold">else</span>:
+            log_keys <span style="color: #333333">=</span> <span style="color: #007020">None</span>
+
+        data <span style="color: #333333">=</span> distributed_utils<span style="color: #333333">.</span>all_reduce_dict(
+            data,
+            device<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>device,
+            group<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>data_parallel_process_group
+        )
+
+        extra_stats_to_sum <span style="color: #333333">=</span> [
+            data[<span style="background-color: #fff0f0">&#39;extra_stats_&#39;</span> <span style="color: #333333">+</span> <span style="color: #007020">str</span>(i)] <span style="color: #008800; font-weight: bold">for</span> i <span style="color: #000000; font-weight: bold">in</span> <span style="color: #007020">range</span>(<span style="color: #007020">len</span>(extra_stats_to_sum))
+        ]
+        <span style="color: #008800; font-weight: bold">if</span> log_keys <span style="color: #000000; font-weight: bold">is</span> <span style="color: #000000; font-weight: bold">not</span> <span style="color: #007020">None</span>:
+            logging_outputs <span style="color: #333333">=</span> [{k: data[<span style="background-color: #fff0f0">&#39;logging_outputs_&#39;</span> <span style="color: #333333">+</span> k] <span style="color: #008800; font-weight: bold">for</span> k <span style="color: #000000; font-weight: bold">in</span> log_keys}]
+        <span style="color: #008800; font-weight: bold">else</span>:
+            logging_outputs <span style="color: #333333">=</span> []
+        <span style="color: #008800; font-weight: bold">return</span> logging_outputs, extra_stats_to_sum
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">_check_grad_norms</span>(<span style="color: #007020">self</span>, grad_norm):
+        <span style="color: #DD4422">&quot;&quot;&quot;Check that grad norms are consistent across workers.&quot;&quot;&quot;</span>
+        <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_grad_norm_buf <span style="color: #000000; font-weight: bold">is</span> <span style="color: #000000; font-weight: bold">not</span> <span style="color: #007020">None</span>:
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>_grad_norm_buf<span style="color: #333333">.</span>zero_()
+            <span style="color: #007020">self</span><span style="color: #333333">.</span>_grad_norm_buf[<span style="color: #007020">self</span><span style="color: #333333">.</span>data_parallel_rank] <span style="color: #333333">=</span> grad_norm
+            distributed_utils<span style="color: #333333">.</span>all_reduce(
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>_grad_norm_buf,
+                group<span style="color: #333333">=</span><span style="color: #007020">self</span><span style="color: #333333">.</span>data_parallel_process_group
+            )
+
+            <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">is_consistent</span>(tensor):
+                max_abs_diff <span style="color: #333333">=</span> torch<span style="color: #333333">.</span>max(torch<span style="color: #333333">.</span>abs(tensor <span style="color: #333333">-</span> tensor[<span style="color: #0000DD; font-weight: bold">0</span>]))
+                <span style="color: #008800; font-weight: bold">return</span> (
+                    <span style="color: #000000; font-weight: bold">not</span> torch<span style="color: #333333">.</span>isfinite(tensor)<span style="color: #333333">.</span>any()
+                    <span style="color: #000000; font-weight: bold">or</span> (max_abs_diff <span style="color: #333333">/</span> (tensor[<span style="color: #0000DD; font-weight: bold">0</span>] <span style="color: #333333">+</span> <span style="color: #6600EE; font-weight: bold">1e-6</span>) <span style="color: #333333">&lt;</span> <span style="color: #6600EE; font-weight: bold">1e-6</span>)<span style="color: #333333">.</span>all()
+                )
+
+            <span style="color: #008800; font-weight: bold">if</span> <span style="color: #000000; font-weight: bold">not</span> is_consistent(<span style="color: #007020">self</span><span style="color: #333333">.</span>_grad_norm_buf):
+                pretty_detail <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;</span><span style="color: #666666; font-weight: bold; background-color: #fff0f0">\n</span><span style="background-color: #fff0f0">&quot;</span><span style="color: #333333">.</span>join(
+                    <span style="background-color: #fff0f0">&quot;rank {:3d} = {:.8f}&quot;</span><span style="color: #333333">.</span>format(r, n)
+                    <span style="color: #008800; font-weight: bold">for</span> r, n <span style="color: #000000; font-weight: bold">in</span> <span style="color: #007020">enumerate</span>(<span style="color: #007020">self</span><span style="color: #333333">.</span>_grad_norm_buf<span style="color: #333333">.</span>tolist())
+                )
+                error_detail <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;grad_norm across the workers:</span><span style="color: #666666; font-weight: bold; background-color: #fff0f0">\n</span><span style="background-color: #fff0f0">{}</span><span style="color: #666666; font-weight: bold; background-color: #fff0f0">\n</span><span style="background-color: #fff0f0">&quot;</span><span style="color: #333333">.</span>format(pretty_detail)
+                <span style="color: #008800; font-weight: bold">raise</span> <span style="color: #FF0000; font-weight: bold">RuntimeError</span>(
+                    <span style="background-color: #fff0f0">&quot;Fatal error: gradients are inconsistent between workers. &quot;</span>
+                    <span style="background-color: #fff0f0">&quot;Try --ddp-backend=no_c10d. &quot;</span>
+                    <span style="background-color: #fff0f0">&quot;Or are you mixing up different generation of GPUs in training?&quot;</span>
+                    <span style="color: #333333">+</span> <span style="background-color: #fff0f0">&quot;</span><span style="color: #666666; font-weight: bold; background-color: #fff0f0">\n</span><span style="background-color: #fff0f0">&quot;</span>
+                    <span style="color: #333333">+</span> <span style="background-color: #fff0f0">&quot;-&quot;</span> <span style="color: #333333">*</span> <span style="color: #0000DD; font-weight: bold">80</span>
+                    <span style="color: #333333">+</span> <span style="background-color: #fff0f0">&quot;</span><span style="color: #666666; font-weight: bold; background-color: #fff0f0">\n</span><span style="background-color: #fff0f0">{}</span><span style="color: #666666; font-weight: bold; background-color: #fff0f0">\n</span><span style="background-color: #fff0f0">&quot;</span><span style="color: #333333">.</span>format(error_detail)
+                    <span style="color: #333333">+</span> <span style="background-color: #fff0f0">&quot;-&quot;</span> <span style="color: #333333">*</span> <span style="color: #0000DD; font-weight: bold">80</span>
+                )
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">_reduce_and_log_stats</span>(<span style="color: #007020">self</span>, logging_outputs, sample_size, grad_norm<span style="color: #333333">=</span><span style="color: #007020">None</span>):
+        <span style="color: #008800; font-weight: bold">if</span> grad_norm <span style="color: #000000; font-weight: bold">is</span> <span style="color: #000000; font-weight: bold">not</span> <span style="color: #007020">None</span>:
+            metrics<span style="color: #333333">.</span>log_speed(<span style="background-color: #fff0f0">&quot;ups&quot;</span>, <span style="color: #6600EE; font-weight: bold">1.</span>, priority<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">100</span>, <span style="color: #007020">round</span><span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">2</span>)
+            metrics<span style="color: #333333">.</span>log_scalar(<span style="background-color: #fff0f0">&quot;gnorm&quot;</span>, grad_norm, priority<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">400</span>, <span style="color: #007020">round</span><span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">3</span>)
+            <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>clip_norm <span style="color: #333333">&gt;</span> <span style="color: #0000DD; font-weight: bold">0</span>:
+                metrics<span style="color: #333333">.</span>log_scalar(
+                    <span style="background-color: #fff0f0">&quot;clip&quot;</span>,
+                    torch<span style="color: #333333">.</span>where(
+                        grad_norm <span style="color: #333333">&gt;</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>args<span style="color: #333333">.</span>clip_norm,
+                        grad_norm<span style="color: #333333">.</span>new_tensor(<span style="color: #0000DD; font-weight: bold">100</span>),
+                        grad_norm<span style="color: #333333">.</span>new_tensor(<span style="color: #0000DD; font-weight: bold">0</span>),
+                    ),
+                    priority<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">500</span>,
+                    <span style="color: #007020">round</span><span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">1</span>,
+                )
+
+        <span style="color: #008800; font-weight: bold">with</span> metrics<span style="color: #333333">.</span>aggregate() <span style="color: #008800; font-weight: bold">as</span> agg:
+            <span style="color: #008800; font-weight: bold">if</span> logging_outputs <span style="color: #000000; font-weight: bold">is</span> <span style="color: #000000; font-weight: bold">not</span> <span style="color: #007020">None</span>:
+                <span style="color: #007020">self</span><span style="color: #333333">.</span>task<span style="color: #333333">.</span>reduce_metrics(logging_outputs, <span style="color: #007020">self</span><span style="color: #333333">.</span>get_criterion())
+                <span style="color: #008800; font-weight: bold">del</span> logging_outputs
+
+            <span style="color: #888888"># extra warning for criterions that don&#39;t properly log a loss value</span>
+            <span style="color: #008800; font-weight: bold">if</span> <span style="background-color: #fff0f0">&quot;loss&quot;</span> <span style="color: #000000; font-weight: bold">not</span> <span style="color: #000000; font-weight: bold">in</span> agg:
+                <span style="color: #008800; font-weight: bold">if</span> <span style="background-color: #fff0f0">&quot;loss&quot;</span> <span style="color: #000000; font-weight: bold">not</span> <span style="color: #000000; font-weight: bold">in</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_warn_once:
+                    <span style="color: #007020">self</span><span style="color: #333333">.</span>_warn_once<span style="color: #333333">.</span>add(<span style="background-color: #fff0f0">&quot;loss&quot;</span>)
+                    logger<span style="color: #333333">.</span>warning(
+                        <span style="background-color: #fff0f0">&quot;Criterion.reduce_metrics did not log a &#39;loss&#39; value, &quot;</span>
+                        <span style="background-color: #fff0f0">&quot;which may break some functionality&quot;</span>
+                    )
+                metrics<span style="color: #333333">.</span>log_scalar(<span style="background-color: #fff0f0">&quot;loss&quot;</span>, <span style="color: #333333">-</span><span style="color: #0000DD; font-weight: bold">1</span>)
+
+            <span style="color: #888888"># support legacy interface</span>
+            <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>tpu:
+                logging_output <span style="color: #333333">=</span> {}
+            <span style="color: #008800; font-weight: bold">else</span>:
+                logging_output <span style="color: #333333">=</span> agg<span style="color: #333333">.</span>get_smoothed_values()
+                logging_output[<span style="background-color: #fff0f0">&quot;sample_size&quot;</span>] <span style="color: #333333">=</span> sample_size
+                <span style="color: #008800; font-weight: bold">for</span> key_to_delete <span style="color: #000000; font-weight: bold">in</span> [<span style="background-color: #fff0f0">&quot;ppl&quot;</span>, <span style="background-color: #fff0f0">&quot;wps&quot;</span>, <span style="background-color: #fff0f0">&quot;wpb&quot;</span>, <span style="background-color: #fff0f0">&quot;bsz&quot;</span>]:
+                    <span style="color: #008800; font-weight: bold">if</span> key_to_delete <span style="color: #000000; font-weight: bold">in</span> logging_output:
+                        <span style="color: #008800; font-weight: bold">del</span> logging_output[key_to_delete]
+            <span style="color: #008800; font-weight: bold">return</span> logging_output
+
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">_check_xla_compilation</span>(<span style="color: #007020">self</span>, message<span style="color: #333333">=</span><span style="color: #007020">None</span>):
+        <span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">torch_xla.debug.metrics</span> <span style="color: #008800; font-weight: bold">as</span> <span style="color: #0e84b5; font-weight: bold">met</span>
+        compile_stats <span style="color: #333333">=</span> met<span style="color: #333333">.</span>metric_data(<span style="background-color: #fff0f0">&quot;CompileTime&quot;</span>)
+        <span style="color: #008800; font-weight: bold">if</span> compile_stats <span style="color: #000000; font-weight: bold">is</span> <span style="color: #007020">None</span>:
+            <span style="color: #008800; font-weight: bold">return</span>
+        num_xla_compiles <span style="color: #333333">=</span> compile_stats[<span style="color: #0000DD; font-weight: bold">0</span>]
+        <span style="color: #008800; font-weight: bold">if</span> num_xla_compiles <span style="color: #333333">&gt;</span> <span style="color: #007020">self</span><span style="color: #333333">.</span>_num_xla_compiles:
+            <span style="color: #008800; font-weight: bold">if</span> message <span style="color: #000000; font-weight: bold">is</span> <span style="color: #007020">None</span>:
+                message <span style="color: #333333">=</span> (
+                    <span style="background-color: #fff0f0">&quot;too many of these can lead to slow training, &quot;</span>
+                    <span style="background-color: #fff0f0">&quot;but we expect a few in the beginning&quot;</span>
+                )
+            logging<span style="color: #333333">.</span>info(<span style="background-color: #fff0f0">&quot;NOTE: XLA compilation detected; {}&quot;</span><span style="color: #333333">.</span>format(message))
+        <span style="color: #007020">self</span><span style="color: #333333">.</span>_num_xla_compiles <span style="color: #333333">=</span> num_xla_compiles
+
+
+<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">_catalog_shared_params</span>(module, memo<span style="color: #333333">=</span><span style="color: #007020">None</span>, prefix<span style="color: #333333">=</span><span style="background-color: #fff0f0">&#39;&#39;</span>):
+    <span style="color: #008800; font-weight: bold">if</span> memo <span style="color: #000000; font-weight: bold">is</span> <span style="color: #007020">None</span>:
+        first_call <span style="color: #333333">=</span> <span style="color: #007020">True</span>
+        memo <span style="color: #333333">=</span> {}
+    <span style="color: #008800; font-weight: bold">else</span>:
+        first_call <span style="color: #333333">=</span> <span style="color: #007020">False</span>
+    <span style="color: #008800; font-weight: bold">for</span> name, param <span style="color: #000000; font-weight: bold">in</span> module<span style="color: #333333">.</span>_parameters<span style="color: #333333">.</span>items():
+        param_prefix <span style="color: #333333">=</span> prefix <span style="color: #333333">+</span> (<span style="background-color: #fff0f0">&#39;.&#39;</span> <span style="color: #008800; font-weight: bold">if</span> prefix <span style="color: #008800; font-weight: bold">else</span> <span style="background-color: #fff0f0">&#39;&#39;</span>) <span style="color: #333333">+</span> name
+        <span style="color: #008800; font-weight: bold">if</span> param <span style="color: #000000; font-weight: bold">not</span> <span style="color: #000000; font-weight: bold">in</span> memo:
+            memo[param] <span style="color: #333333">=</span> []
+        memo[param]<span style="color: #333333">.</span>append(param_prefix)
+    <span style="color: #008800; font-weight: bold">for</span> name, m <span style="color: #000000; font-weight: bold">in</span> module<span style="color: #333333">.</span>_modules<span style="color: #333333">.</span>items():
+        <span style="color: #008800; font-weight: bold">if</span> m <span style="color: #000000; font-weight: bold">is</span> <span style="color: #007020">None</span>:
+            <span style="color: #008800; font-weight: bold">continue</span>
+        submodule_prefix <span style="color: #333333">=</span> prefix <span style="color: #333333">+</span> (<span style="background-color: #fff0f0">&#39;.&#39;</span> <span style="color: #008800; font-weight: bold">if</span> prefix <span style="color: #008800; font-weight: bold">else</span> <span style="background-color: #fff0f0">&#39;&#39;</span>) <span style="color: #333333">+</span> name
+        _catalog_shared_params(m, memo, submodule_prefix)
+    <span style="color: #008800; font-weight: bold">if</span> first_call:
+        <span style="color: #008800; font-weight: bold">return</span> [x <span style="color: #008800; font-weight: bold">for</span> x <span style="color: #000000; font-weight: bold">in</span> memo<span style="color: #333333">.</span>values() <span style="color: #008800; font-weight: bold">if</span> <span style="color: #007020">len</span>(x) <span style="color: #333333">&gt;</span> <span style="color: #0000DD; font-weight: bold">1</span>]
+
+
+<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">_get_module_by_path</span>(module, path):
+    path <span style="color: #333333">=</span> path<span style="color: #333333">.</span>split(<span style="background-color: #fff0f0">&#39;.&#39;</span>)
+    <span style="color: #008800; font-weight: bold">for</span> name <span style="color: #000000; font-weight: bold">in</span> path:
+        module <span style="color: #333333">=</span> <span style="color: #007020">getattr</span>(module, name)
+    <span style="color: #008800; font-weight: bold">return</span> module
+
+
+<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">_set_module_by_path</span>(module, path, value):
+    path <span style="color: #333333">=</span> path<span style="color: #333333">.</span>split(<span style="background-color: #fff0f0">&#39;.&#39;</span>)
+    <span style="color: #008800; font-weight: bold">for</span> name <span style="color: #000000; font-weight: bold">in</span> path[:<span style="color: #333333">-</span><span style="color: #0000DD; font-weight: bold">1</span>]:
+        module <span style="color: #333333">=</span> <span style="color: #007020">getattr</span>(module, name)
+    <span style="color: #007020">setattr</span>(module, path[<span style="color: #333333">-</span><span style="color: #0000DD; font-weight: bold">1</span>], value)
+</pre></td></tr></table></div>
+
+  <script src="index.js"></script>
+</body>
+</html>
