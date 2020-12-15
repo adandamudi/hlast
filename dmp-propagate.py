@@ -1,4 +1,4 @@
-import diff_patch_match.python3 as dmp_module
+import diff_match_patch as dmp_module
 import argparse
 import sys
 import os
@@ -122,7 +122,7 @@ def dmp(args):
                         # so the log shows up at the right spot
                         new_linenum = new_linenum - (lines_so_far - linenum)
 
-                    log.debug("aligned line number in previous version: ".format(new_linenum))
+                    log.debug("aligned line number in previous version: {}".format(new_linenum))
 
                     #########################################################################
                     # find the appropriate indentation before and after the given line_number
