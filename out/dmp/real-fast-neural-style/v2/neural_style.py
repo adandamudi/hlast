@@ -94,8 +94,8 @@ def train(args):
                 gm_y = utils.gram_matrix(ft_y)
                 style_loss += mse_loss(gm_y, gm_s[:n_batch, :, :])
             style_loss *= args.style_weight
-            print("LOG STMT: Content Loss = %s, Style Loss = %s" % (content_loss, style_loss))
 
+            print("LOG STMT: Content Loss = %s, Style Loss = %s" % (content_loss, style_loss))
             total_loss = content_loss + style_loss
             total_loss.backward()
             optimizer.step()

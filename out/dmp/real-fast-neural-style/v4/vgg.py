@@ -35,5 +35,5 @@ class Vgg16(torch.nn.Module):
         h_relu4_3 = h
         vgg_outputs = namedtuple("VggOutputs", ['relu1_2', 'relu2_2', 'relu3_3', 'relu4_3'])
         out = vgg_outputs(h_relu1_2, h_relu2_2, h_relu3_3, h_relu4_3)
-        
         return out
+        
