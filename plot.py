@@ -1,13 +1,45 @@
 ### Plot to make log pushback results graph ###
+import matplotlib
 import matplotlib.pyplot as plt
+import numpy as np
 
-labels = ["Toy", "Eco-small", "Eco-large"]
-values = [(5/8) * 100, (5/5) * 100, (3/4) * 100]
-plt.bar(labels, values, color=(0.1, 0.2, 0.6, 0.9))
-plt.title('Log Pushback Accuracy')
-plt.xlabel('Test example type')
-plt.ylabel('Accuracy (%)')
+
+labels = ["Toy", "Random", "Eco-small", "Eco-large"]
+values_gumtree = [round((4/7) * 100, 2), round((0) * 100, 2), round((4/5) * 100, 2), round((0) * 100, 2)]
+values_dmp = [round((5/8) * 100, 2), round((0) * 100, 2), round((5/5) * 100, 2), round((3/4) * 100, 2)]
+
+x = np.arange(len(labels))  # the label locations
+width = 0.4  # the width of the bars
+
+fig, ax = plt.subplots()
+rects1 = ax.bar(x - width/2, values_gumtree, width, label='GumTree AST Diff')
+rects2 = ax.bar(x + width/2, values_dmp, width, label='Myers Algo with DMP')
+
+# Add some text for labels, title and custom x-axis tick labels, etc.
+ax.set_ylabel('Accuracy (%)')
+ax.set_title('Log Pushback Accuracy')
+ax.set_xticks(x)
+ax.set_xticklabels(labels)
+ax.legend(fontsize = 'medium')
+
+
+def autolabel(rects):
+    """Attach a text label above each bar in *rects*, displaying its height."""
+    for rect in rects:
+        height = rect.get_height()
+        ax.annotate('{}'.format(height),
+                    xy=(rect.get_x() + rect.get_width() / 2, height-2),
+                    xytext=(0, 5),  # 3 points vertical offset
+                    textcoords="offset points",
+                    ha='center', va='bottom')
+
+autolabel(rects1)
+autolabel(rects2)
+
+fig.tight_layout()
+
 plt.show()
+plt.savefig(os.path.join("~/logpushback_fig.png"))
 
 
 ### Plot to make storage/compute overhead results graph ###
@@ -58,7 +90,7 @@ autolabel(rects4)
 fig.tight_layout()
 
 plt.show()
-plt.savefig(os.path.join("~/over_head_fig.png"))
+plt.savefig(os.path.join("~/overhead_fig.png"))
 
 
 
