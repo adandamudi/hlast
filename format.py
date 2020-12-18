@@ -9,8 +9,10 @@ parser.add_argument('file', type=FileType('r+'))
 parser.add_argument('--minor', type=int, default=sys.version_info[1])
 (args, _) = parser.parse_known_args()
 
-t = parse(args.file.read(), feature_version=(3, args.minor))
+tree = parse(args.file.read(), feature_version=(3, args.minor))
+formatted = unparse(tree)
 
-args.file.seek(0)
-print(unparse(t), file=args.file)
-args.file.truncate()
+with args.file as f:
+    f.seek(0)
+    print(unparse(tree), file=f)
+    f.truncate()
